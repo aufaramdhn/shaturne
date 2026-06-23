@@ -1,0 +1,139 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  # ─── Frontend ──────────────────────────────────────────────────────────
+  frontend:
+    name: Frontend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      # 1. Lint
+      - name: Lint
+        run: npm run lint
+
+      # 2. Security scan — break build on HIGH/CRITICAL CVE (§13.1)
+      - name: Security scan (npm audit)
+        run: npm audit --audit-level=high
+
+      # 3. Test
+      - name: Test
+        run: npm run test --if-present
+
+      # 4. Build
+      - name: Build
+        run: npm run build
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL || 'http://localhost:8000' }}
+          VITE_APP_ENV: production
+
+  # ─── Backend ───────────────────────────────────────────────────────────
+  backend:
+    name: Backend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: shaturne_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: pdo, pdo_pgsql, mbstring, xml, ctype, json
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      # 1. Lint
+      - name: Lint (Pint)
+        run: vendor/bin/pint --test
+
+      # 2. Security scan — break build on HIGH/CRITICAL CVE (§13.1)
+      - name: Security scan (composer audit)
+        run: composer audit
+
+      # 3. Static analysis — blocking (level 5 clean, config in phpstan.neon)
+      - name: Static analysis (PHPStan)
+        run: vendor/bin/phpstan analyse --no-progress --memory-limit=1G
+
+      # 4. Test
+      - name: Run tests
+        run: vendor/bin/phpunit
+        env:
+          APP_ENV: testing
+          APP_DEBUG: false
+          DB_CONNECTION: pgsql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 5432
+          DB_DATABASE: shaturne_test
+          DB_USERNAME: postgres
+          DB_PASSWORD: postgres
+
+  # ─── E2E (Playwright) ──────────────────────────────────────────────────
+  e2e:
+    name: E2E
+    runs-on: ubuntu-latest
+    needs: frontend
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      # webServer in playwright.config.ts builds + serves the SPA; specs are
+      # frontend-only (routing/i18n/404), so no backend is required.
+      - name: Run E2E
+        run: npm run e2e
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL || 'http://localhost:8000' }}
+          VITE_APP_ENV: production

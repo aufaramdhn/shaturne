@@ -1,0 +1,261 @@
+/* ─── Google Fonts (must precede Tailwind import) ──────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Hanken+Grotesk:wght@300..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+@import 'tailwindcss';
+
+/* ─── Design tokens — Dark SaaS (navy + cyan glow). Default = dark. ──── */
+:root {
+  --color-bg: oklch(15% 0.024 265);
+  --color-surface: oklch(19% 0.028 265);
+  --color-surface-raised: oklch(24% 0.032 265);
+  --color-text: oklch(97% 0.005 250);
+  --color-text-muted: oklch(71% 0.022 258);
+  --color-border: oklch(30% 0.028 265);
+  --color-accent: oklch(82% 0.135 195); /* bright cyan */
+  --color-accent-strong: oklch(74% 0.15 198);
+  --color-accent-2: oklch(62% 0.19 285); /* violet — gradient pair */
+  --color-error: oklch(68% 0.19 25);
+
+  /* glow */
+  --glow-accent: 0 0 32px -6px color-mix(in oklch, var(--color-accent) 60%, transparent);
+
+  /* ── Typography ─ */
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  /* ── Type scale ─ */
+  --text-hero: clamp(2.75rem, 6.5vw, 5.75rem);
+  --text-h1: clamp(2rem, 4vw, 3.5rem);
+  --text-h2: clamp(1.6rem, 2.8vw, 2.5rem);
+  --text-h3: 1.25rem;
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-tag: 0.75rem;
+
+  /* ── Z-index scale ─ */
+  --z-aurora: 0;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-backdrop: 40;
+  --z-modal: 50;
+  --z-toast: 60;
+  --z-tooltip: 70;
+}
+
+[data-theme='light'] {
+  --color-bg: oklch(98% 0.005 255);
+  --color-surface: oklch(96% 0.007 255);
+  --color-surface-raised: oklch(100% 0 0);
+  --color-text: oklch(22% 0.03 265);
+  --color-text-muted: oklch(48% 0.03 260);
+  --color-border: oklch(89% 0.012 260);
+  --color-accent: oklch(55% 0.13 205);
+  --color-accent-strong: oklch(50% 0.14 208);
+  --color-accent-2: oklch(52% 0.19 285);
+  --color-error: oklch(52% 0.2 25);
+
+  --glow-accent: 0 0 28px -8px color-mix(in oklch, var(--color-accent) 40%, transparent);
+}
+
+/* ─── Base layer — inside @layer base so Tailwind utilities win ──────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-family: var(--font-body);
+    font-size: 16px;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100dvh;
+    line-height: 1.7;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+
+  h5,
+  h6,
+  p,
+  label,
+  button,
+  input,
+  select,
+  textarea {
+    font-family: var(--font-body);
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--font-mono);
+  }
+
+  /* Zero browser defaults for all form elements (§6.4) */
+  input,
+  textarea,
+  select,
+  button {
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    outline: none;
+    background: none;
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    color: var(--color-text);
+  }
+
+  /* Custom range slider (§6.4) — track fill driven by --range-fill */
+  input[type='range'].range-slider {
+    width: 100%;
+    height: 1.5rem;
+    cursor: pointer;
+    background: transparent;
+  }
+  input[type='range'].range-slider::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(
+      to right,
+      var(--color-accent) 0%,
+      var(--color-accent) var(--range-fill, 0%),
+      var(--color-border) var(--range-fill, 0%),
+      var(--color-border) 100%
+    );
+  }
+  input[type='range'].range-slider::-moz-range-track {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--color-border);
+  }
+  input[type='range'].range-slider::-moz-range-progress {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--color-accent);
+  }
+  input[type='range'].range-slider::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    margin-top: -6px;
+    height: 18px;
+    width: 18px;
+    border-radius: 999px;
+    background: var(--color-accent);
+    box-shadow: var(--glow-accent);
+    transition: transform 0.15s ease;
+  }
+  input[type='range'].range-slider::-moz-range-thumb {
+    height: 18px;
+    width: 18px;
+    border: none;
+    border-radius: 999px;
+    background: var(--color-accent);
+    box-shadow: var(--glow-accent);
+    transition: transform 0.15s ease;
+  }
+  input[type='range'].range-slider:hover::-webkit-slider-thumb {
+    transform: scale(1.15);
+  }
+  input[type='range'].range-slider:hover::-moz-range-thumb {
+    transform: scale(1.15);
+  }
+  input[type='range'].range-slider:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  /* Focus visible — never remove, only restyle */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: color-mix(in oklch, var(--color-accent) 30%, transparent);
+    color: var(--color-text);
+  }
+}
+
+/* Aurora lebih lembut di light mode (blob terang di bg putih bisa garish) */
+[data-theme='light'] .aurora-blob {
+  opacity: 0.16;
+}
+
+/* ─── Skeleton shimmer (§7.4) ───────────────────────────────────────── */
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-shimmer {
+  background-image: linear-gradient(
+    90deg,
+    var(--color-surface) 25%,
+    var(--color-surface-raised) 50%,
+    var(--color-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+/* ─── Aurora drift (ambient background motion) ──────────────────────── */
+@keyframes aurora-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, -3%, 0) scale(1.12);
+  }
+}
+
+/* Reduced-motion handling: intentionally disabled per user decision —
+   all animations always run (forced via <MotionConfig reducedMotion="never">). */
+
+/* ─── Scrollbar (chromium) ──────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}

@@ -1,0 +1,14 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    level: 5
+
+    paths:
+        - app
+
+    # Eloquent dynamic properties / relations are understood by Larastan.
+    checkModelProperties: true
+
+    ignoreErrors:
+        # HasUuids + dynamic Eloquent magic occasionally trips strict checks.

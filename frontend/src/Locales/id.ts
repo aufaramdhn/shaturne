@@ -1,0 +1,116 @@
+// Indonesian UI dictionary. `en.ts` must mirror this shape (typed as typeof id).
+
+export const id = {
+  nav: {
+    home: 'Beranda',
+    projects: 'Proyek',
+    contact: 'Kontak',
+  },
+  hero: {
+    headlineA: 'Antarmuka yang rapi,',
+    headlineHi: 'terdokumentasi',
+    headlineB: 'dengan baik.',
+    ctaProjects: 'Lihat Proyek',
+    ctaContact: 'Hubungi Saya',
+    statYears: 'Tahun',
+    statProjects: 'Proyek',
+    statDisciplines: 'Disiplin',
+  },
+  about: {
+    eyebrow: 'Tentang',
+    title: 'Lintas disiplin, satu kebiasaan: mencatat.',
+    p1: 'Saya membangun antarmuka web dengan React dan TypeScript, dan memperlakukan dokumentasi sebagai bagian dari produk — bukan tempelan di akhir.',
+    p2: 'Kebiasaan ini terbawa dari kerja lintas bidang: laporan pengujian penetrasi dengan risk heatmap, dokumen desain game, sampai dokumentasi praktikum IoT. Objeknya berbeda-beda, tapi caranya sama — dicatat rapi supaya bisa diandalkan orang lain.',
+  },
+  skills: {
+    eyebrow: 'Keahlian',
+    title: 'Perangkat yang saya pakai sehari-hari.',
+  },
+  experience: {
+    eyebrow: 'Pengalaman',
+    title: 'Dua tahun lintas organisasi.',
+    present: 'Sekarang',
+  },
+  projectsPreview: {
+    eyebrow: 'Proyek',
+    title: 'Yang terbaru.',
+    subtitle: 'Beberapa karya terbaru.',
+    seeAll: 'Lihat semua proyek',
+  },
+  closing: {
+    title: 'Punya proyek atau pertanyaan?',
+    subtitle: 'Saya terbuka untuk kolaborasi dan diskusi teknis.',
+    cta: 'Hubungi Saya',
+  },
+  projectsPage: {
+    entries: '{count} entri',
+    title: 'Proyek',
+    intro: 'Kumpulan kerja lintas disiplin — masing-masing dengan catatannya sendiri.',
+  },
+  projectDetail: {
+    back: 'Proyek',
+    stack: 'Stack',
+    repo: 'Lihat Repo',
+    demo: 'Buka Demo',
+    notFoundTitle: 'Proyek tidak ditemukan',
+    backList: 'Kembali ke daftar proyek',
+  },
+  status: {
+    rilis: 'rilis',
+    dikerjakan: 'dikerjakan',
+  },
+  contact: {
+    eyebrow: 'Kontak',
+    title: 'Mari berbincang.',
+    intro: 'Ada proyek, pertanyaan, atau sekadar ingin menyapa? Kirim pesan lewat formulir ini.',
+    direct: 'Langsung',
+    reply: 'Biasanya dibalas dalam 1–2 hari.',
+    name: 'Nama',
+    email: 'Email',
+    message: 'Pesan',
+    namePlaceholder: 'Nama kamu',
+    emailPlaceholder: 'nama@email.com',
+    messagePlaceholder: 'Tulis pesan kamu…',
+    send: 'Kirim Pesan',
+    sending: 'Mengirim…',
+    successTitle: 'Pesan terkirim.',
+    successBody: 'Terima kasih sudah menghubungi. Balasan akan dikirim ke email kamu.',
+    sendAnother: 'Kirim pesan lain',
+    errNameReq: 'Nama wajib diisi.',
+    errEmailReq: 'Email wajib diisi.',
+    errEmailInvalid: 'Format email tidak valid.',
+    errMsgReq: 'Pesan wajib diisi.',
+    errMsgMin: 'Pesan minimal 10 karakter.',
+    errSend: 'Gagal mengirim. Coba lagi.',
+  },
+  notFound: {
+    title: 'Halaman tidak ditemukan.',
+    body: 'Tautan mungkin salah atau halaman sudah dipindahkan. Catatan ini tidak ada di arsip.',
+    home: 'Kembali ke Beranda',
+  },
+  spotify: {
+    playing: 'Sedang diputar',
+    idle: 'Spotify',
+    online: 'online',
+    offline: 'offline',
+    offlineTitle: 'Sedang offline',
+    offlineBody: 'Lagi tidak mendengarkan apa pun — cek lagi nanti.',
+  },
+  footer: {
+    tagline: 'Catatan kerja yang rapi — dibangun dengan React & Laravel.',
+  },
+  seo: {
+    homeTitle: 'Shaturne — Naufa Ramadhana, Fullstack Developer',
+    homeDesc:
+      'Portfolio Naufa Ramadhana — fullstack developer yang membangun antarmuka rapi dan terdokumentasi dengan React, TypeScript, dan Laravel.',
+    projectsTitle: 'Proyek — Shaturne',
+    projectsDesc:
+      'Kumpulan kerja lintas disiplin Naufa Ramadhana — masing-masing dengan catatannya sendiri.',
+    contactTitle: 'Kontak — Shaturne',
+    contactDesc:
+      'Hubungi Naufa Ramadhana untuk kolaborasi, pertanyaan, atau diskusi teknis seputar pengembangan web.',
+    notFoundTitle: '404 — Halaman tidak ditemukan — Shaturne',
+    projectTitleTpl: '{title} — Proyek — Shaturne',
+    jobTitle: 'Fullstack Developer',
+  },
+}
