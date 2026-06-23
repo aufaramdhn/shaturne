@@ -98,6 +98,7 @@ jobs:
         run: vendor/bin/phpunit
         env:
           APP_ENV: testing
+          APP_KEY: base64:YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXoxMjM0NTY=
           APP_DEBUG: false
           DB_CONNECTION: pgsql
           DB_HOST: 127.0.0.1
@@ -105,6 +106,9 @@ jobs:
           DB_DATABASE: shaturne_test
           DB_USERNAME: postgres
           DB_PASSWORD: postgres
+          SANCTUM_STATEFUL_DOMAINS: localhost
+          SESSION_DRIVER: array
+          CACHE_STORE: array
 
   # ─── E2E (Playwright) ──────────────────────────────────────────────────
   e2e:
