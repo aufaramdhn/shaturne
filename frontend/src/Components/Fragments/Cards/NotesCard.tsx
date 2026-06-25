@@ -1,15 +1,10 @@
-import { motion } from 'framer-motion'
 import Badge from '@/Components/Elements/Badge'
 import { useLanguage } from '@/Context/LanguageContext'
 
 export default function NotesCard() {
   const { lang } = useLanguage()
   return (
-    <motion.div
-      animate={{ y: [0, -14, 0] }}
-      transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-      className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/90 p-5 shadow-[var(--glow-accent)]"
-    >
+    <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/90 p-5 shadow-[var(--glow-accent)]">
       <div className="flex items-center gap-2 border-b border-[var(--color-border)] pb-3">
         <span className="h-3 w-3 rounded-full bg-[var(--color-error)]" />
         <span className="h-3 w-3 rounded-full bg-[var(--color-accent-2)]" />
@@ -30,6 +25,6 @@ export default function NotesCard() {
           <Badge>sanctum</Badge>
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }
