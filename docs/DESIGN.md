@@ -62,9 +62,18 @@ frontend/
 │   │
 │   ├── Components/                 # Atomic Design
 │   │   ├── Elements/                # Atoms: Button, Input, Textarea, Select, Checkbox, Switch, Badge, Spinner, SkeletonBox
-│   │   ├── Fragments/               # Navbar, Footer, ThemeToggle, LanguageSwitcher, Section, Marquee,
-│   │   │                            #   AuroraBackground, Preloader, NotesCard, SpotifyCard,
-│   │   │                            #   ProjectCard(+Skeleton), ProjectDetailSkeleton, SkillGroup, ContactForm
+│   │   ├── Fragments/               # Molecules/organisms — dibagi per domain:
+│   │   │   ├── Cards/               #   ProjectCard, ProjectCardSkeleton, ProjectDetailSkeleton,
+│   │   │   │                        #   NotesCard, SpotifyCard
+│   │   │   ├── Forms/               #   ContactForm (+ ContactForm.test.tsx)
+│   │   │   ├── Navigation/          #   Navbar, Footer, ThemeToggle, LanguageSwitcher
+│   │   │   ├── AuroraBackground.tsx
+│   │   │   ├── AuthBootstrap.tsx
+│   │   │   ├── Marquee.tsx
+│   │   │   ├── Preloader.tsx
+│   │   │   ├── ScrollProgressBar.tsx
+│   │   │   ├── Section.tsx
+│   │   │   └── SkillGroup.tsx
 │   │   └── Layouts/                 # Templates: MainLayout, DashboardLayout, AuthLayout
 │   │
 │   ├── Animations/                  # (baru) — pusat semua logika Framer Motion
@@ -658,7 +667,7 @@ Situs publik multibahasa (sekarang **ID + EN**, siap nambah). Implementasi **cus
 - `Locales/index.ts` — `Lang`, `LANGS`, `DEFAULT_LANG`, `dictionaries`, `isLang()`, `detectLang()` (localStorage → `navigator.language` → fallback `id`), tipe `LocalizedText` + `tx()`.
 - `Context/LanguageContext.tsx` — `LanguageProvider({ lang })` menyediakan `{ lang, t, switchLang }`. `t('a.b.c', { var })` resolve dot-path + interpolasi `{var}`, fallback ke `id` lalu ke key. `switchLang()` menukar segmen `:lang` di URL. Sinkron `<html lang>` + simpan ke localStorage.
 - `Constants/routes.ts` → helper `localePath(lang, route)` untuk semua `Link`/`NavLink` internal.
-- `Components/Fragments/LanguageSwitcher.tsx` — dropdown custom (globe + ID/EN) di Navbar.
+- `Components/Fragments/Navigation/LanguageSwitcher.tsx` — dropdown custom (globe + ID/EN) di Navbar.
 
 **Alur:** `Routes/Index.tsx` → `/:lang` membungkus `MainLayout`. `MainLayout` baca `:lang` via `useParams`, validasi `isLang` (kalau invalid → `Navigate` ke default), lalu bungkus `LanguageProvider`. Semua page/Fragment pakai `useLanguage()`.
 
@@ -667,3 +676,107 @@ Situs publik multibahasa (sekarang **ID + EN**, siap nambah). Implementasi **cus
 **Backend (SELESAI):** konten DB dilokalisasi dengan `spatie/laravel-translatable` — kolom JSON `{id, en}` untuk field prosa (`projects.title/description`, `skills.category`, `experiences.title/description`); `slug`/`name`/`organization`/`type` tetap tunggal (language-neutral). Middleware `SetLocale` resolve locale: `?lang=` → `Accept-Language` → default. Resource publik (`App\Http\Resources\*`) keluarkan string ter-resolve per-locale; resource dashboard (`App\Http\Resources\Dashboard\*`) keluarkan peta `{id, en}` penuh untuk diedit admin. Form Request validasi `field.id` + `field.en`. Frontend: axios interceptor menambahkan `?lang=<UI lang>` (Accept-Language tak bisa di-override di browser) via `Services/Common/locale.ts` yang disetel `LanguageContext`; form dashboard punya input ID + EN per field translatable. Catatan: kolom JSON tidak bisa di-`orderBy` di Postgres — skill diurut `sort_order`, dikelompokkan per kategori di klien.
 
 **SEO (Phase 6):** tambah `hreflang` alternate per bahasa + `<html lang>` (sudah sinkron) saat go-live.
+
+---
+
+## 17. Z-Index Scale
+
+Skala z-index terdefinisi — tidak pernah nilai arbitrary seperti `999` atau `9999`:
+
+| Token | Nilai | Dipakai untuk |
+|---|---|---|
+| `--z-base` | 0 | Konten default |
+| `--z-dropdown` | 10 | Dropdown, popover, combobox |
+| `--z-sticky` | 20 | Sticky header, sticky sidebar |
+| `--z-overlay` | 40 | Modal backdrop, drawer overlay |
+| `--z-modal` | 50 | Dialog, modal |
+| `--z-toast` | 80 | Toast / snackbar notification |
+| `--z-tooltip` | 90 | Tooltip (portalled ke body) |
+
+Tooltip dan dropdown yang ada di dalam container dengan `transform` atau `overflow: hidden` **wajib** dirender lewat `createPortal(... , document.body)` — ini menghindari bug stacking context di mana `position: fixed` terperangkap di dalam transform parent.
+
+```css
+/* Resources/Global.css */
+:root {
+  --z-dropdown: 10;
+  --z-sticky:   20;
+  --z-overlay:  40;
+  --z-modal:    50;
+  --z-toast:    80;
+  --z-tooltip:  90;
+}
+```
+
+---
+
+## 18. Responsive Breakpoints
+
+Mengikuti Tailwind v4 defaults — mobile-first:
+
+| Breakpoint | px | Nama Tailwind | Dipakai untuk |
+|---|---|---|---|
+| Default | < 640px | (none) | Mobile portrait |
+| `sm` | ≥ 640px | `sm:` | Mobile landscape, kecil |
+| `md` | ≥ 768px | `md:` | Tablet portrait |
+| `lg` | ≥ 1024px | `lg:` | Tablet landscape, laptop |
+| `xl` | ≥ 1280px | `xl:` | Desktop |
+| `2xl` | ≥ 1536px | `2xl:` | Wide desktop |
+
+### Aturan Breakpoint
+
+- **Desain mobile-first**: style default = mobile; scaling ke atas via `sm:`/`md:`/`lg:`
+- Grid layout: default `grid-cols-1`, `md:grid-cols-2`, `lg:grid-cols-3`
+- Heatmap contribution: `overflow-x-auto` + `width: fit-content` untuk bisa di-scroll di mobile
+- Typography clamp: `clamp(2rem, 5vw, 4rem)` — tidak pernah >6rem di hero
+- Container max-width: `max-w-7xl` (1280px) untuk konten utama, `max-w-3xl` untuk body text
+
+---
+
+## 19. Error Boundary
+
+Setiap section/route wajib dibungkus Error Boundary untuk isolasi crash — satu section error tidak crash seluruh halaman:
+
+```tsx
+// Components/Elements/ErrorBoundary.tsx
+import { Component, type ReactNode } from 'react'
+
+interface Props { children: ReactNode; fallback?: ReactNode }
+interface State { hasError: boolean }
+
+export class ErrorBoundary extends Component<Props, State> {
+  state: State = { hasError: false }
+
+  static getDerivedStateFromError(): State {
+    return { hasError: true }
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback ?? <SectionErrorFallback />
+    }
+    return this.props.children
+  }
+}
+```
+
+Gunakan di Pages untuk membungkus setiap section yang fetch data:
+
+```tsx
+// Pages/Public/Home/index.tsx
+<ErrorBoundary fallback={<ProjectsSectionError />}>
+  <ProjectsSection />
+</ErrorBoundary>
+```
+
+Fallback harus: (1) tidak crash sendiri, (2) tidak melakukan fetch, (3) menampilkan UI yang masuk akal — bukan blank white.
+
+---
+
+## 20. Referensi Dokumen
+
+| Dokumen | Isi |
+|---|---|
+| `docs/PRD.md` | Feature requirements, personas, success metrics |
+| `docs/DESIGN.md` | Arsitektur teknis, design system, security checklist, DB schema (dokumen ini) |
+| `docs/FRONTEND.md` | Standar pengembangan frontend — TypeScript, testing, naming, tooling |
+| `docs/BACKEND.md` | Standar pengembangan backend — Controller/Service/Resource, testing, security |

@@ -13,6 +13,8 @@ class DashboardMessageController extends Controller
 {
     public function index(): AnonymousResourceCollection
     {
+        $this->authorize('viewAny', Message::class);
+
         $messages = Message::orderByDesc('created_at')->paginate(20);
 
         return MessageResource::collection($messages)
@@ -22,6 +24,7 @@ class DashboardMessageController extends Controller
     // Viewing a message marks it read.
     public function show(Message $message): JsonResource
     {
+        $this->authorize('view', $message);
         if (! $message->is_read) {
             $message->update(['is_read' => true]);
         }
@@ -32,6 +35,7 @@ class DashboardMessageController extends Controller
 
     public function destroy(Message $message): JsonResponse
     {
+        $this->authorize('delete', $message);
         $message->delete();
 
         return $this->ok(null, 'Pesan dihapus.');

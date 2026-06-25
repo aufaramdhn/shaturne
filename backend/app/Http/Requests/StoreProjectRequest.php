@@ -8,7 +8,7 @@ class StoreProjectRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true; // dashboard group gated by auth:sanctum + role:admin
+        return $this->user()->can('create', \App\Models\Project::class);
     }
 
     /**

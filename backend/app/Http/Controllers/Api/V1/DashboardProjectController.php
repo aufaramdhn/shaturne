@@ -18,6 +18,8 @@ class DashboardProjectController extends Controller
 
     public function index(): AnonymousResourceCollection
     {
+        $this->authorize('viewAny', Project::class);
+
         $projects = Project::with('images')
             ->orderBy('sort_order')
             ->orderByDesc('created_at')
@@ -55,6 +57,7 @@ class DashboardProjectController extends Controller
 
     public function destroy(Project $project): JsonResponse
     {
+        $this->authorize('delete', $project);
         $this->projects->delete($project);
 
         return $this->ok(null, 'Proyek dihapus.');

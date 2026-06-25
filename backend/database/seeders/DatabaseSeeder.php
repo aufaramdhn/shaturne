@@ -20,16 +20,16 @@ class DatabaseSeeder extends Seeder
         $adminRole = Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
 
         $admin = User::firstOrCreate(
-            ['email' => 'admin@shaturne.dev'],
-            ['name' => 'Admin', 'password' => Hash::make('password')],
+            ['email' => 'rathermyself08@gmail.com'],
+            ['name' => 'Aufa Ramadhan', 'password' => Hash::make('password')],
         );
         $admin->assignRole($adminRole);
 
         // ── Skills ───────────────────────────────────────────────────────
         $cat = [
             'Frontend' => ['id' => 'Frontend', 'en' => 'Frontend'],
-            'Backend' => ['id' => 'Backend', 'en' => 'Backend'],
-            'Security' => ['id' => 'Keamanan', 'en' => 'Security'],
+            'Backend'  => ['id' => 'Backend', 'en' => 'Backend'],
+            'Tools'    => ['id' => 'Tools & Keamanan Web', 'en' => 'Tools & Web Security'],
         ];
         $skills = [
             ['React', 'Frontend', 92], ['TypeScript', 'Frontend', 88],
@@ -37,7 +37,8 @@ class DatabaseSeeder extends Seeder
             ['Framer Motion', 'Frontend', 78], ['Vite', 'Frontend', 80],
             ['Laravel', 'Backend', 85], ['PHP', 'Backend', 82],
             ['REST API', 'Backend', 84], ['PostgreSQL', 'Backend', 75],
-            ['Web Pentesting', 'Security', 70], ['Git', 'Security', 85],
+            ['Web App Security', 'Tools', 70], ['Git', 'Tools', 88],
+            ['Linux', 'Tools', 75], ['Figma', 'Tools', 72], ['Docker', 'Tools', 65],
         ];
         foreach ($skills as $i => [$name, $category, $prof]) {
             Skill::updateOrCreate(
@@ -52,8 +53,8 @@ class DatabaseSeeder extends Seeder
                 'title' => ['id' => 'Shaturne Portfolio', 'en' => 'Shaturne Portfolio'],
                 'slug' => 'shaturne-portfolio',
                 'description' => [
-                    'id' => 'Portfolio personal dengan arsitektur terpisah penuh. Frontend React (Vite) di-deploy ke static hosting, backend Laravel sebagai data & auth provider via Sanctum cookie. Light/dark mode first-class, animasi terukur, dan dashboard CRUD ber-UUID.',
-                    'en' => 'A personal portfolio with a fully decoupled architecture. A React (Vite) frontend deployed to static hosting, with Laravel as the data & auth provider over Sanctum cookies. First-class light/dark mode, measured animation, and a UUID-based CRUD dashboard.',
+                    'id' => 'Portfolio personal dengan arsitektur terpisah penuh. Frontend React (Vite) di-deploy ke static hosting, backend Laravel sebagai data & auth provider via Sanctum cookie. Light/dark mode, animasi terukur, dan dashboard CRUD ber-UUID.',
+                    'en' => 'A personal portfolio with a fully decoupled architecture. React (Vite) frontend on static hosting, Laravel as the data & auth provider over Sanctum cookies. Light/dark mode, measured animation, and a UUID-based CRUD dashboard.',
                 ],
                 'stack' => ['React', 'TypeScript', 'Laravel', 'PostgreSQL'],
                 'is_published' => true,
@@ -63,8 +64,8 @@ class DatabaseSeeder extends Seeder
                 'title' => ['id' => 'Risk Heatmap Reporter', 'en' => 'Risk Heatmap Reporter'],
                 'slug' => 'risk-heatmap-reporter',
                 'description' => [
-                    'id' => 'Aplikasi web untuk merapikan temuan pengujian penetrasi menjadi laporan terstruktur. Menghasilkan risk heatmap interaktif (likelihood × impact) dan ekspor PDF yang konsisten.',
-                    'en' => 'A web app that turns penetration-test findings into structured reports. It generates an interactive risk heatmap (likelihood × impact) and consistent PDF exports.',
+                    'id' => 'Aplikasi web untuk mengubah temuan pengujian penetrasi menjadi laporan terstruktur. Menghasilkan risk heatmap interaktif (likelihood × impact) dan ekspor PDF yang konsisten.',
+                    'en' => 'A web app that turns penetration-test findings into structured reports. Generates an interactive risk heatmap (likelihood × impact) and consistent PDF exports.',
                 ],
                 'stack' => ['React', 'TypeScript', 'Node.js'],
                 'is_published' => true,
@@ -75,7 +76,7 @@ class DatabaseSeeder extends Seeder
                 'slug' => 'iot-praktikum-dashboard',
                 'description' => [
                     'id' => 'Dashboard monitoring data sensor (suhu, kelembapan, gerak) dari perangkat ESP32 via MQTT. Menampilkan grafik realtime dan riwayat, lengkap dengan modul dokumentasi tiap percobaan.',
-                    'en' => 'A monitoring dashboard for sensor data (temperature, humidity, motion) from ESP32 devices over MQTT. It shows realtime charts and history, with a documentation module for each experiment.',
+                    'en' => 'A monitoring dashboard for sensor data (temperature, humidity, motion) from ESP32 devices over MQTT. Shows realtime charts and history, with a documentation module per experiment.',
                 ],
                 'stack' => ['React', 'MQTT', 'Chart.js'],
                 'is_published' => true,
@@ -89,40 +90,28 @@ class DatabaseSeeder extends Seeder
         // ── Experiences ──────────────────────────────────────────────────
         $experiences = [
             [
-                'title' => ['id' => 'Frontend Developer', 'en' => 'Frontend Developer'],
+                'title'        => ['id' => 'Fullstack Developer', 'en' => 'Fullstack Developer'],
                 'organization' => 'Proyek Lepas',
-                'start_date' => '2024-01-01',
-                'end_date' => null,
-                'description' => [
-                    'id' => 'Membangun antarmuka SPA dengan React + TypeScript, fokus pada aksesibilitas, animasi yang terukur, dan dokumentasi komponen yang rapi.',
-                    'en' => 'Building SPA interfaces with React + TypeScript, focused on accessibility, measured animation, and tidy component documentation.',
+                'start_date'   => '2024-01-01',
+                'end_date'     => null,
+                'description'  => [
+                    'id' => 'Membangun aplikasi web end-to-end dengan React, TypeScript, dan Laravel — dari desain antarmuka hingga REST API, autentikasi, dan konfigurasi deployment.',
+                    'en' => 'Building end-to-end web applications with React, TypeScript, and Laravel — from interface design to REST APIs, authentication, and deployment setup.',
                 ],
-                'type' => 'work',
+                'type'       => 'work',
                 'sort_order' => 1,
             ],
             [
-                'title' => ['id' => 'Anggota Divisi Keamanan', 'en' => 'Security Division Member'],
-                'organization' => 'Komunitas Keamanan Siber',
-                'start_date' => '2023-01-01',
-                'end_date' => '2024-01-01',
-                'description' => [
-                    'id' => 'Melakukan pengujian penetrasi web dan menyusun laporan temuan lengkap dengan risk heatmap serta rekomendasi mitigasi.',
-                    'en' => 'Performing web penetration testing and writing complete finding reports with a risk heatmap and mitigation recommendations.',
+                'title'        => ['id' => 'Mahasiswa Teknik Informatika', 'en' => 'Computer Science Student'],
+                'organization' => 'Universitas Pasundan',
+                'start_date'   => '2022-09-01',
+                'end_date'     => null,
+                'description'  => [
+                    'id' => 'Mendalami rekayasa perangkat lunak dan pengembangan web, dengan fondasi kuat di algoritma, arsitektur sistem, dan praktik pengembangan modern.',
+                    'en' => 'Studying software engineering and web development, building a strong foundation in algorithms, system architecture, and modern development practices.',
                 ],
-                'type' => 'organization',
+                'type'       => 'education',
                 'sort_order' => 2,
-            ],
-            [
-                'title' => ['id' => 'Mahasiswa Teknik Informatika', 'en' => 'Computer Science Student'],
-                'organization' => 'Universitas',
-                'start_date' => '2022-09-01',
-                'end_date' => null,
-                'description' => [
-                    'id' => 'Mendalami rekayasa perangkat lunak, sistem tertanam (IoT), dan pengembangan game — semuanya didokumentasikan secara konsisten.',
-                    'en' => 'Studying software engineering, embedded systems (IoT), and game development — all consistently documented.',
-                ],
-                'type' => 'education',
-                'sort_order' => 3,
             ],
         ];
         foreach ($experiences as $e) {

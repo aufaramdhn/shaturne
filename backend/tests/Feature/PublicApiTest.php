@@ -2,10 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Mail\ContactAutoReply;
+use App\Mail\ContactNotification;
 use App\Models\Experience;
 use App\Models\Project;
 use App\Models\Skill;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class PublicApiTest extends TestCase
@@ -104,6 +107,30 @@ class PublicApiTest extends TestCase
             ->assertOk()
             ->assertJsonPath('success', true)
             ->assertJsonPath('data.is_playing', false);
+    }
+
+    public function test_contact_queues_notification_and_autoreply_emails(): void
+    {
+        Mail::fake();
+
+        $this->postJson('/api/v1/contact', [
+            'name'    => 'Budi',
+            'email'   => 'budi@example.com',
+            'message' => 'Halo, ini pesan uji yang cukup panjang.',
+        ])->assertCreated()->assertJsonPath('success', true);
+
+        // Owner-notification mail queued once, addressed to the owner.
+        Mail::assertQueued(ContactNotification::class, 1);
+        Mail::assertQueued(ContactNotification::class, function (ContactNotification $mail) {
+            return $mail->envelope()->to[0]->address
+                === config('mail.owner_email', 'rathermyself08@gmail.com');
+        });
+
+        // Auto-reply queued once, addressed back to the sender.
+        Mail::assertQueued(ContactAutoReply::class, 1);
+        Mail::assertQueued(ContactAutoReply::class, function (ContactAutoReply $mail) {
+            return $mail->envelope()->to[0]->address === 'budi@example.com';
+        });
     }
 
     public function test_contact_honeypot_silently_drops_bot_submissions(): void

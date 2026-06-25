@@ -89,4 +89,64 @@ class DashboardProjectTest extends TestCase
             ->assertStatus(422)
             ->assertJsonValidationErrors(['title']);
     }
+
+    public function test_admin_index_returns_all_projects_including_drafts(): void
+    {
+        Sanctum::actingAs($this->createAdmin());
+        Project::create(['title' => ['id' => 'Pub', 'en' => 'Pub'], 'slug' => 'pub', 'description' => ['id' => 'x', 'en' => 'x'], 'stack' => [], 'is_published' => true]);
+        Project::create(['title' => ['id' => 'Draft', 'en' => 'Draft'], 'slug' => 'draft', 'description' => ['id' => 'x', 'en' => 'x'], 'stack' => [], 'is_published' => false]);
+
+        $this->getJson('/api/v1/dashboard/projects')
+            ->assertOk()
+            ->assertJsonPath('success', true)
+            ->assertJsonCount(2, 'data');
+    }
+
+    public function test_admin_show_returns_full_translation_map(): void
+    {
+        Sanctum::actingAs($this->createAdmin());
+        $project = Project::create(['title' => ['id' => 'Judul', 'en' => 'Title'], 'slug' => 'show-me', 'description' => ['id' => 'desc id', 'en' => 'desc en'], 'stack' => [], 'is_published' => true]);
+
+        $this->getJson("/api/v1/dashboard/projects/{$project->id}")
+            ->assertOk()
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.title.id', 'Judul')
+            ->assertJsonPath('data.title.en', 'Title');
+    }
+
+    public function test_update_returns_404_for_non_existent_project(): void
+    {
+        Sanctum::actingAs($this->createAdmin());
+        $fakeUuid = '00000000-0000-0000-0000-000000000000';
+
+        $this->putJson("/api/v1/dashboard/projects/{$fakeUuid}", [
+            'title'       => ['id' => 'x', 'en' => 'x'],
+            'description' => ['id' => 'x', 'en' => 'x'],
+            'stack'       => [],
+            'is_published' => false,
+        ])->assertNotFound();
+    }
+
+    public function test_delete_returns_404_for_non_existent_project(): void
+    {
+        Sanctum::actingAs($this->createAdmin());
+        $fakeUuid = '00000000-0000-0000-0000-000000000000';
+
+        $this->deleteJson("/api/v1/dashboard/projects/{$fakeUuid}")->assertNotFound();
+    }
+
+    public function test_non_admin_cannot_mutate_projects(): void
+    {
+        $project = Project::create(['title' => ['id' => 'X', 'en' => 'X'], 'slug' => 'x', 'description' => ['id' => 'x', 'en' => 'x'], 'stack' => [], 'is_published' => false]);
+        Sanctum::actingAs(User::factory()->create());
+
+        $this->putJson("/api/v1/dashboard/projects/{$project->id}", [
+            'title'       => ['id' => 'Y', 'en' => 'Y'],
+            'description' => ['id' => 'x', 'en' => 'x'],
+            'stack'       => [],
+            'is_published' => false,
+        ])->assertForbidden();
+
+        $this->deleteJson("/api/v1/dashboard/projects/{$project->id}")->assertForbidden();
+    }
 }

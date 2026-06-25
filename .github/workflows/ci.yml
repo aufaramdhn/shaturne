@@ -98,7 +98,7 @@ jobs:
         run: vendor/bin/phpunit
         env:
           APP_ENV: testing
-          APP_KEY: base64:YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXoxMjM0NTY=
+          APP_KEY: base64:9nRRlGx7YLoAJNIpbTG20vY68qdCNuV/gPN0FhgLsL0=
           APP_DEBUG: false
           DB_CONNECTION: pgsql
           DB_HOST: 127.0.0.1

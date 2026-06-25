@@ -15,6 +15,8 @@ class DashboardSkillController extends Controller
 {
     public function index(): AnonymousResourceCollection
     {
+        $this->authorize('viewAny', Skill::class);
+
         // category is a translatable JSON column (not orderable in pgsql).
         $skills = Skill::orderBy('sort_order')->get();
 
@@ -47,6 +49,7 @@ class DashboardSkillController extends Controller
 
     public function destroy(Skill $skill): JsonResponse
     {
+        $this->authorize('delete', $skill);
         $skill->delete();
 
         return $this->ok(null, 'Keahlian dihapus.');

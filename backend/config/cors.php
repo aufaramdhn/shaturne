@@ -10,10 +10,14 @@ return [
 
     'allowed_origins' => array_values(array_filter([
         env('FRONTEND_URL'),
-        'http://localhost:5173',
-        'http://localhost:5174',
-        'http://127.0.0.1:5173',
-        'http://127.0.0.1:5174',
+        // Localhost origins only outside production — env() is safe in config files,
+        // app()->environment() is not (container not ready during config load).
+        ...(env('APP_ENV') === 'production' ? [] : [
+            'http://localhost:5173',
+            'http://localhost:5174',
+            'http://127.0.0.1:5173',
+            'http://127.0.0.1:5174',
+        ]),
     ])),
 
     'allowed_origins_patterns' => [],

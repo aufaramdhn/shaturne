@@ -43,4 +43,11 @@ return [
         'refresh_token' => env('SPOTIFY_REFRESH_TOKEN'),
     ],
 
+    // GitHub contributions heatmap — PAT with read:user scope.
+    // Both required; if missing the endpoint returns empty weeks (fail-soft).
+    'github' => [
+        'token'    => env('GITHUB_PAT'),
+        'username' => env('GITHUB_USERNAME'),
+    ],
+
 ];

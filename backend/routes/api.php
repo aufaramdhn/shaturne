@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\V1\DashboardProjectController;
 use App\Http\Controllers\Api\V1\DashboardSkillController;
 use App\Http\Controllers\Api\V1\ExperienceController;
 use App\Http\Controllers\Api\V1\MessageController;
+use App\Http\Controllers\Api\V1\GithubContributionsController;
 use App\Http\Controllers\Api\V1\NowPlayingController;
 use App\Http\Controllers\Api\V1\ProjectController;
 use App\Http\Controllers\Api\V1\SkillController;
@@ -40,6 +41,8 @@ Route::prefix('api/v1')->group(function () {
         ->middleware('throttle:3,10'); // anti-spam: 3 requests per 10 minutes per IP
     Route::get('now-playing', [NowPlayingController::class, 'index'])
         ->middleware('throttle:60,1'); // polled ~30s by the frontend
+    Route::get('github/contributions', [GithubContributionsController::class, 'index'])
+        ->middleware('throttle:30,1'); // cached 6h, light rate limit
 
     // ── Dashboard (auth required) — uses UUID, not integer ID ───────────
     Route::prefix('dashboard')->middleware(['auth:sanctum', 'role:admin'])->group(function () {

@@ -162,4 +162,6 @@ Base atom: `SkeletonBox.tsx` with CSS shimmer animation.
 ## Key Docs
 
 - `docs/PRD.md` — full feature requirements, personas, success metrics
-- `docs/DESIGN.md` — folder structure, dependency rules, animation system, security checklist, API conventions, DB schema
+- `docs/DESIGN.md` — folder structure, dependency rules, animation system, security checklist, API conventions, DB schema, z-index scale, breakpoints, error boundary pattern
+- `docs/FRONTEND.md` — industry-standard frontend guide: TypeScript strict, component rules, hooks pattern, state management, service layer, testing, performance, security, naming, tooling
+- `docs/BACKEND.md` — industry-standard backend guide: thin controller, service layer, form request, API resource, Sanctum auth, Policy, Pest testing, security, caching, logging

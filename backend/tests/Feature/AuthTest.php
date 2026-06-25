@@ -66,4 +66,19 @@ class AuthTest extends TestCase
             ->assertOk()
             ->assertJsonPath('data.email', 'me@b.com');
     }
+
+    public function test_logout_clears_session(): void
+    {
+        // The logout endpoint uses the web guard (session-based). We must send the
+        // request through the stateful Sanctum middleware so $request->session()
+        // is available. actingAs() on the web guard provides the authenticated
+        // session for the single request.
+        $user = User::factory()->create();
+        $this->actingAs($user, 'web');
+
+        $this->stateful()
+            ->postJson('/api/v1/auth/logout')
+            ->assertOk()
+            ->assertJsonPath('success', true);
+    }
 }

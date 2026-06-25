@@ -15,6 +15,8 @@ class DashboardExperienceController extends Controller
 {
     public function index(): AnonymousResourceCollection
     {
+        $this->authorize('viewAny', Experience::class);
+
         $experiences = Experience::orderBy('sort_order')->orderByDesc('start_date')->get();
 
         return ExperienceResource::collection($experiences)
@@ -47,6 +49,7 @@ class DashboardExperienceController extends Controller
 
     public function destroy(Experience $experience): JsonResponse
     {
+        $this->authorize('delete', $experience);
         $experience->delete();
 
         return $this->ok(null, 'Pengalaman dihapus.');

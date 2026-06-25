@@ -21,7 +21,7 @@ class SecurityHeaders
         // CSP: tighten per-route as needed; this is the safe baseline
         $response->headers->set(
             'Content-Security-Policy',
-            "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; frame-ancestors 'none';"
+            "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://i.scdn.co https://mosaic.scdn.co; connect-src 'self' https://lrclib.net; frame-ancestors 'none';"
         );
 
         // HSTS: only effective over HTTPS — set in production
