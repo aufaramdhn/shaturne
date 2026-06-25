@@ -46,7 +46,7 @@ export default function LoginForm() {
           onChange={e => setEmail(e.target.value)}
           error={fieldErrors.email}
           autoComplete="username"
-          placeholder="admin@shaturne.dev"
+          placeholder="nama@email.com"
         />
         <Input
           label="Password"
