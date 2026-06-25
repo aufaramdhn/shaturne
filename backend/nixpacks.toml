@@ -1,0 +1,24 @@
+[phases.setup]
+nixPkgs = [
+  "php83",
+  "php83Extensions.pgsql",
+  "php83Extensions.pdo_pgsql",
+  "php83Extensions.mbstring",
+  "php83Extensions.xml",
+  "php83Extensions.curl",
+  "php83Extensions.tokenizer",
+  "php83Extensions.fileinfo",
+  "php83Extensions.ctype",
+  "php83Extensions.bcmath",
+  "php83Extensions.dom",
+  "php83Extensions.intl",
+  "php83Extensions.openssl",
+  "php83Extensions.pcre",
+  "php83Extensions.session",
+]
+
+[phases.install]
+cmds = ["composer install --no-dev --optimize-autoloader"]
+
+[start]
+cmd = "bash start.sh"
