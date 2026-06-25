@@ -32,15 +32,15 @@ export interface DummyExperience {
 
 // ── Profil ────────────────────────────────────────────────────────────
 export const PROFILE = {
-  name: 'Naufa Ramadhana', // ganti dengan nama asli
+  name: 'Aufa Ramadhan',
   role: 'Fullstack Developer',
   location: 'Indonesia',
   framing: {
-    id: 'Fullstack developer dengan kebiasaan mencatat tiap keputusan teknis — dari laporan pentest, GDD, sampai dokumentasi praktikum IoT.',
-    en: 'A fullstack developer with a habit of documenting every technical decision — from pentest reports and GDDs to IoT lab write-ups.',
+    id: 'Saya membangun aplikasi web end-to-end: dari antarmuka React yang responsif hingga REST API Laravel yang terdokumentasi dan aman.',
+    en: 'I build end-to-end web applications: from responsive React interfaces to well-documented, secure Laravel REST APIs.',
   } satisfies LocalizedText,
-  email: 'halo@shaturne.dev', // ganti
-  github: 'https://github.com/', // ganti
+  email: 'rathermyself08@gmail.com',
+  github: 'https://github.com/aufaramdhn',
 }
 
 // ── Skills ────────────────────────────────────────────────────────────
@@ -54,40 +54,30 @@ export const SKILLS: DummySkillGroup[] = [
     items: ['Laravel', 'PHP', 'REST API', 'PostgreSQL', 'MySQL'],
   },
   {
-    category: { id: 'Keamanan & Lainnya', en: 'Security & More' },
-    items: ['Web Pentesting', 'Git', 'Figma', 'Dokumentasi Teknis'],
+    category: { id: 'Tools & Keamanan Web', en: 'Tools & Web Security' },
+    items: ['Web App Security', 'Git', 'Linux', 'Figma', 'Docker'],
   },
 ]
 
 // ── Experience ────────────────────────────────────────────────────────
 export const EXPERIENCES: DummyExperience[] = [
   {
-    title: { id: 'Frontend Developer', en: 'Frontend Developer' },
+    title: { id: 'Fullstack Developer', en: 'Fullstack Developer' },
     organization: { id: 'Proyek Lepas', en: 'Freelance' },
-    period: { id: '2024 — Sekarang', en: '2024 — Present' },
+    period: { id: '2024 / Sekarang', en: '2024 / Present' },
     description: {
-      id: 'Membangun antarmuka SPA dengan React + TypeScript, fokus pada aksesibilitas, animasi yang terukur, dan dokumentasi komponen yang rapi.',
-      en: 'Building SPA interfaces with React + TypeScript, focused on accessibility, measured animation, and tidy component documentation.',
+      id: 'Membangun aplikasi web end-to-end dengan React, TypeScript, dan Laravel: dari desain antarmuka hingga REST API, autentikasi, dan konfigurasi deployment.',
+      en: 'Building end-to-end web applications with React, TypeScript, and Laravel: from interface design to REST APIs, authentication, and deployment setup.',
     },
     type: 'kerja',
   },
   {
-    title: { id: 'Anggota Divisi Keamanan', en: 'Security Division Member' },
-    organization: { id: 'Komunitas Keamanan Siber', en: 'Cybersecurity Community' },
-    period: { id: '2023 — 2024', en: '2023 — 2024' },
-    description: {
-      id: 'Melakukan pengujian penetrasi web dan menyusun laporan temuan lengkap dengan risk heatmap serta rekomendasi mitigasi.',
-      en: 'Performing web penetration testing and writing complete findings reports with risk heatmaps and mitigation recommendations.',
-    },
-    type: 'organisasi',
-  },
-  {
     title: { id: 'Mahasiswa Teknik Informatika', en: 'Computer Science Student' },
-    organization: { id: 'Universitas', en: 'University' },
-    period: { id: '2022 — Sekarang', en: '2022 — Present' },
+    organization: { id: 'Universitas Pasundan', en: 'Universitas Pasundan' },
+    period: { id: '2022 / Sekarang', en: '2022 / Present' },
     description: {
-      id: 'Mendalami rekayasa perangkat lunak, sistem tertanam (IoT), dan pengembangan game — semuanya didokumentasikan secara konsisten.',
-      en: 'Studying software engineering, embedded systems (IoT), and game development — all documented consistently.',
+      id: 'Mendalami rekayasa perangkat lunak dan pengembangan web, dengan fondasi kuat di algoritma, arsitektur sistem, dan praktik pengembangan modern.',
+      en: 'Studying software engineering and web development, building a strong foundation in algorithms, system architecture, and modern development practices.',
     },
     type: 'pendidikan',
   },
@@ -99,8 +89,8 @@ export const PROJECTS: DummyProject[] = [
     slug: 'shaturne-portfolio',
     title: 'Shaturne Portfolio',
     summary: {
-      id: 'Situs portfolio decoupled — React SPA + Laravel REST API.',
-      en: 'A decoupled portfolio site — React SPA + Laravel REST API.',
+      id: 'Situs portfolio decoupled: React SPA + Laravel REST API.',
+      en: 'A decoupled portfolio site: React SPA + Laravel REST API.',
     },
     description: {
       id: 'Portfolio personal dengan arsitektur terpisah penuh. Frontend React (Vite) di-deploy ke static hosting, backend Laravel sebagai data & auth provider via Sanctum cookie. Light/dark mode first-class, animasi terukur, dan dashboard CRUD ber-UUID.',
@@ -108,7 +98,7 @@ export const PROJECTS: DummyProject[] = [
     },
     stack: ['React', 'TypeScript', 'Laravel', 'PostgreSQL'],
     year: '2026',
-    role: { id: 'Solo — desain & engineering', en: 'Solo — design & engineering' },
+    role: { id: 'Solo, desain & engineering', en: 'Solo, design & engineering' },
     repoUrl: 'https://github.com/',
     demoUrl: null,
     status: 'dikerjakan',
@@ -146,7 +136,7 @@ export const PROJECTS: DummyProject[] = [
     },
     stack: ['React', 'MQTT', 'Chart.js'],
     year: '2023',
-    role: { id: 'Tim — frontend & dokumentasi', en: 'Team — frontend & documentation' },
+    role: { id: 'Tim, frontend & dokumentasi', en: 'Team, frontend & documentation' },
     repoUrl: 'https://github.com/',
     demoUrl: null,
     status: 'rilis',

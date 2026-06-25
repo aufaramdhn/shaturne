@@ -7,15 +7,7 @@ import Switch from '@/Components/Elements/Switch'
 import Modal from '@/Components/Elements/Modal'
 import FileUpload from '@/Components/Elements/FileUpload'
 import type { MediaItem } from '@/Components/Elements/FileUpload'
-import { useFetch } from '@/Hooks/Dashboard/useFetch'
-import {
-  getDashProjects,
-  createProject,
-  updateProject,
-  deleteProject,
-  uploadMedia,
-  deleteMedia,
-} from '@/Services/Dashboard/dashboardService'
+import { useDashProjects } from '@/Hooks/Dashboard/useDashProjects'
 import type { DashProject } from '@/Services/Dashboard/dashboardService'
 
 interface FormState {
@@ -43,19 +35,27 @@ const EMPTY: FormState = {
 }
 
 export default function Projects() {
-  const { data, isLoading, reload } = useFetch(getDashProjects)
-  const projects = data ?? []
+  const {
+    items,
+    isLoading,
+    saving,
+    errors,
+    clearErrors,
+    create,
+    update,
+    remove,
+    uploadMedia,
+    deleteMedia,
+  } = useDashProjects()
 
   const [open, setOpen] = useState(false)
   const [editing, setEditing] = useState<DashProject | null>(null)
   const [form, setForm] = useState<FormState>(EMPTY)
-  const [saving, setSaving] = useState(false)
-  const [errors, setErrors] = useState<Record<string, string>>({})
 
   function openCreate() {
     setEditing(null)
     setForm(EMPTY)
-    setErrors({})
+    clearErrors()
     setOpen(true)
   }
 
@@ -74,14 +74,12 @@ export default function Projects() {
         .sort((a, b) => a.order - b.order)
         .map(img => ({ path: img.path, url: img.url })),
     })
-    setErrors({})
+    clearErrors()
     setOpen(true)
   }
 
   async function handleSave(e: React.FormEvent) {
     e.preventDefault()
-    setSaving(true)
-    setErrors({})
     const payload = {
       title: { id: form.titleId, en: form.titleEn },
       description: { id: form.descId, en: form.descEn },
@@ -94,28 +92,13 @@ export default function Projects() {
       is_published: form.is_published,
       images: form.images.map(img => img.path),
     }
-    try {
-      if (editing) await updateProject(editing.uuid, payload)
-      else await createProject(payload)
-      setOpen(false)
-      reload()
-    } catch (err) {
-      const e2 = err as { response?: { data?: { errors?: Record<string, string[]> } } }
-      const apiErrors = e2.response?.data?.errors
-      if (apiErrors) {
-        const mapped: Record<string, string> = {}
-        for (const [k, v] of Object.entries(apiErrors)) mapped[k] = v[0]
-        setErrors(mapped)
-      }
-    } finally {
-      setSaving(false)
-    }
+    const ok = editing ? await update(editing.uuid, payload) : await create(payload)
+    if (ok) setOpen(false)
   }
 
   async function handleDelete(p: DashProject) {
     if (!window.confirm(`Hapus proyek "${p.title.id}"?`)) return
-    await deleteProject(p.uuid)
-    reload()
+    await remove(p.uuid)
   }
 
   return (
@@ -126,7 +109,7 @@ export default function Projects() {
             Proyek
           </h1>
           <p className="mt-1 text-[var(--color-text-muted)]">
-            {isLoading ? 'Memuat…' : `${projects.length} entri`}
+            {isLoading ? 'Memuat…' : `${items.length} entri`}
           </p>
         </div>
         <Button size="sm" onClick={openCreate}>
@@ -144,7 +127,7 @@ export default function Projects() {
             </tr>
           </thead>
           <tbody>
-            {projects.map(p => (
+            {items.map(p => (
               <tr
                 key={p.uuid}
                 className="border-b border-[var(--color-border)] transition-colors last:border-0 hover:bg-[var(--color-surface-raised)]/50"
@@ -178,10 +161,10 @@ export default function Projects() {
                 </td>
               </tr>
             ))}
-            {!isLoading && projects.length === 0 && (
+            {!isLoading && items.length === 0 && (
               <tr>
                 <td colSpan={3} className="px-5 py-10 text-center text-[var(--color-text-muted)]">
-                  Belum ada proyek. Klik “Tambah”.
+                  Belum ada proyek. Klik &quot;Tambah&quot;.
                 </td>
               </tr>
             )}

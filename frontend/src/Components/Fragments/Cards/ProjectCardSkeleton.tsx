@@ -1,7 +1,5 @@
 import SkeletonBox from '@/Components/Elements/SkeletonBox'
 
-// Mirrors ProjectCard shape exactly (§7.4). Used in Phase 4 async loading.
-
 export default function ProjectCardSkeleton() {
   return (
     <div className="flex flex-col overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]">

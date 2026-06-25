@@ -1,30 +1,26 @@
 import { useState } from 'react'
 import Button from '@/Components/Elements/Button'
 import Modal from '@/Components/Elements/Modal'
-import { useFetch } from '@/Hooks/Dashboard/useFetch'
-import { getMessages, readMessage, deleteMessage } from '@/Services/Dashboard/dashboardService'
+import { useDashInbox } from '@/Hooks/Dashboard/useDashInbox'
 import type { DashMessage } from '@/Services/Dashboard/dashboardService'
 
 export default function Inbox() {
-  const { data, isLoading, reload } = useFetch(getMessages)
-  const messages = data ?? []
+  const { items, isLoading, markRead, remove } = useDashInbox()
   const [active, setActive] = useState<DashMessage | null>(null)
 
-  const unread = messages.filter(m => !m.is_read).length
+  const unread = items.filter(m => !m.is_read).length
 
   async function openMessage(m: DashMessage) {
     setActive(m)
     if (!m.is_read) {
-      await readMessage(m.uuid)
-      reload()
+      await markRead(m.uuid)
     }
   }
 
   async function handleDelete(m: DashMessage) {
     if (!window.confirm(`Hapus pesan dari ${m.name}?`)) return
-    await deleteMessage(m.uuid)
+    await remove(m.uuid)
     setActive(null)
-    reload()
   }
 
   return (
@@ -37,7 +33,7 @@ export default function Inbox() {
       </header>
 
       <ul className="flex flex-col gap-2">
-        {messages.map(m => (
+        {items.map(m => (
           <li key={m.uuid}>
             <button
               onClick={() => openMessage(m)}
@@ -73,7 +69,7 @@ export default function Inbox() {
             </button>
           </li>
         ))}
-        {!isLoading && messages.length === 0 && (
+        {!isLoading && items.length === 0 && (
           <li className="rounded-2xl border border-[var(--color-border)] p-10 text-center text-[var(--color-text-muted)]">
             Belum ada pesan.
           </li>

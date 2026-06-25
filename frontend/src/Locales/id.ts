@@ -7,9 +7,9 @@ export const id = {
     contact: 'Kontak',
   },
   hero: {
-    headlineA: 'Antarmuka yang rapi,',
-    headlineHi: 'terdokumentasi',
-    headlineB: 'dengan baik.',
+    headlineA: 'Saya',
+    headlineHi: 'Aufa Ramadhan',
+    headlineB: ', fullstack web developer.',
     ctaProjects: 'Lihat Proyek',
     ctaContact: 'Hubungi Saya',
     statYears: 'Tahun',
@@ -18,9 +18,9 @@ export const id = {
   },
   about: {
     eyebrow: 'Tentang',
-    title: 'Lintas disiplin, satu kebiasaan: mencatat.',
-    p1: 'Saya membangun antarmuka web dengan React dan TypeScript, dan memperlakukan dokumentasi sebagai bagian dari produk — bukan tempelan di akhir.',
-    p2: 'Kebiasaan ini terbawa dari kerja lintas bidang: laporan pengujian penetrasi dengan risk heatmap, dokumen desain game, sampai dokumentasi praktikum IoT. Objeknya berbeda-beda, tapi caranya sama — dicatat rapi supaya bisa diandalkan orang lain.',
+    title: 'Frontend yang rapi, backend yang kokoh.',
+    p1: 'Saya membangun aplikasi web end-to-end dengan React, TypeScript, dan Laravel: dari antarmuka yang responsif hingga REST API yang terdokumentasi.',
+    p2: 'Saya juga familiar dengan keamanan aplikasi web: pengujian penetrasi OWASP Top 10, manajemen autentikasi, dan praktik pengembangan yang aman di sisi backend maupun frontend.',
   },
   skills: {
     eyebrow: 'Keahlian',
@@ -28,7 +28,7 @@ export const id = {
   },
   experience: {
     eyebrow: 'Pengalaman',
-    title: 'Dua tahun lintas organisasi.',
+    title: 'Dua tahun membangun di dunia web.',
     present: 'Sekarang',
   },
   projectsPreview: {
@@ -43,9 +43,9 @@ export const id = {
     cta: 'Hubungi Saya',
   },
   projectsPage: {
-    entries: '{count} entri',
+    entries: '{count} proyek',
     title: 'Proyek',
-    intro: 'Kumpulan kerja lintas disiplin — masing-masing dengan catatannya sendiri.',
+    intro: 'Aplikasi dan tools web yang pernah saya kerjakan.',
   },
   projectDetail: {
     back: 'Proyek',
@@ -64,7 +64,7 @@ export const id = {
     title: 'Mari berbincang.',
     intro: 'Ada proyek, pertanyaan, atau sekadar ingin menyapa? Kirim pesan lewat formulir ini.',
     direct: 'Langsung',
-    reply: 'Biasanya dibalas dalam 1–2 hari.',
+    reply: 'Biasanya dibalas dalam 1 sampai 2 hari.',
     name: 'Nama',
     email: 'Email',
     message: 'Pesan',
@@ -73,6 +73,7 @@ export const id = {
     messagePlaceholder: 'Tulis pesan kamu…',
     send: 'Kirim Pesan',
     sending: 'Mengirim…',
+    cooldownBtn: 'Tunggu {time}',
     successTitle: 'Pesan terkirim.',
     successBody: 'Terima kasih sudah menghubungi. Balasan akan dikirim ke email kamu.',
     sendAnother: 'Kirim pesan lain',
@@ -85,7 +86,7 @@ export const id = {
   },
   notFound: {
     title: 'Halaman tidak ditemukan.',
-    body: 'Tautan mungkin salah atau halaman sudah dipindahkan. Catatan ini tidak ada di arsip.',
+    body: 'Tautan mungkin salah atau halaman sudah dipindahkan.',
     home: 'Kembali ke Beranda',
   },
   spotify: {
@@ -94,23 +95,25 @@ export const id = {
     online: 'online',
     offline: 'offline',
     offlineTitle: 'Sedang offline',
-    offlineBody: 'Lagi tidak mendengarkan apa pun — cek lagi nanti.',
+    offlineBody: 'Lagi tidak mendengarkan apa pun, cek lagi nanti.',
   },
   footer: {
-    tagline: 'Catatan kerja yang rapi — dibangun dengan React & Laravel.',
+    tagline: 'Dibangun dengan React dan Laravel.',
+  },
+  preloader: {
+    tagline: 'portfolio kerja',
   },
   seo: {
-    homeTitle: 'Shaturne — Naufa Ramadhana, Fullstack Developer',
+    homeTitle: 'Shaturne | Aufa Ramadhan, Fullstack Developer',
     homeDesc:
-      'Portfolio Naufa Ramadhana — fullstack developer yang membangun antarmuka rapi dan terdokumentasi dengan React, TypeScript, dan Laravel.',
-    projectsTitle: 'Proyek — Shaturne',
-    projectsDesc:
-      'Kumpulan kerja lintas disiplin Naufa Ramadhana — masing-masing dengan catatannya sendiri.',
-    contactTitle: 'Kontak — Shaturne',
+      'Portfolio Aufa Ramadhan, fullstack web developer yang membangun aplikasi web end-to-end dengan React, TypeScript, dan Laravel.',
+    projectsTitle: 'Proyek | Shaturne',
+    projectsDesc: 'Aplikasi dan tools web yang dikerjakan oleh Aufa Ramadhan.',
+    contactTitle: 'Kontak | Shaturne',
     contactDesc:
-      'Hubungi Naufa Ramadhana untuk kolaborasi, pertanyaan, atau diskusi teknis seputar pengembangan web.',
-    notFoundTitle: '404 — Halaman tidak ditemukan — Shaturne',
-    projectTitleTpl: '{title} — Proyek — Shaturne',
+      'Hubungi Aufa Ramadhan untuk kolaborasi, pertanyaan, atau diskusi teknis seputar pengembangan web.',
+    notFoundTitle: '404 | Halaman tidak ditemukan | Shaturne',
+    projectTitleTpl: '{title} | Proyek | Shaturne',
     jobTitle: 'Fullstack Developer',
   },
 }

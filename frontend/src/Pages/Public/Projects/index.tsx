@@ -1,8 +1,6 @@
 import { useLocation } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { staggerContainer, fadeUp } from '@/Animations/variants'
-import ProjectCard from '@/Components/Fragments/ProjectCard'
-import ProjectCardSkeleton from '@/Components/Fragments/ProjectCardSkeleton'
+import { ErrorBoundary } from '@/Components/Elements/ErrorBoundary'
+import ProjectsGrid from '@/Components/Fragments/ProjectsGrid'
 import { useLanguage } from '@/Context/LanguageContext'
 import { useProjects } from '@/Hooks/Public/useProjects'
 import { useSeo, buildAlternates } from '@/Hooks/Common/useSeo'
@@ -32,30 +30,9 @@ export default function Projects() {
         </p>
       </header>
 
-      {error ? (
-        <p className="mt-12 text-[var(--color-error)]">{error}</p>
-      ) : isLoading ? (
-        <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <li key={i}>
-              <ProjectCardSkeleton />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <motion.ul
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-          className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {projects.map((project, i) => (
-            <motion.li key={project.uuid} variants={fadeUp}>
-              <ProjectCard project={project} index={i} />
-            </motion.li>
-          ))}
-        </motion.ul>
-      )}
+      <ErrorBoundary>
+        <ProjectsGrid projects={projects} isLoading={isLoading} error={error} />
+      </ErrorBoundary>
     </div>
   )
 }

@@ -15,11 +15,11 @@ describe('projectAccent', () => {
 
 describe('periodLabel', () => {
   it('uses the present word when end is null', () => {
-    expect(periodLabel('2024-01-01', null, 'Sekarang')).toBe('2024 — Sekarang')
+    expect(periodLabel('2024-01-01', null, 'Sekarang')).toBe('2024 / Sekarang')
   })
 
   it('renders a year range when both dates exist', () => {
-    expect(periodLabel('2022-06-01', '2024-03-01', 'Present')).toBe('2022 — 2024')
+    expect(periodLabel('2022-06-01', '2024-03-01', 'Present')).toBe('2022 / 2024')
   })
 
   it('falls back to the end word when start is missing', () => {

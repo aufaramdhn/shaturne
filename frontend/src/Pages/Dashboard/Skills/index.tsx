@@ -3,13 +3,7 @@ import Button from '@/Components/Elements/Button'
 import Input from '@/Components/Elements/Input'
 import RangeSlider from '@/Components/Elements/RangeSlider'
 import Modal from '@/Components/Elements/Modal'
-import { useFetch } from '@/Hooks/Dashboard/useFetch'
-import {
-  getDashSkills,
-  createSkill,
-  updateSkill,
-  deleteSkill,
-} from '@/Services/Dashboard/dashboardService'
+import { useDashSkills } from '@/Hooks/Dashboard/useDashSkills'
 import type { DashSkill } from '@/Services/Dashboard/dashboardService'
 
 interface FormState {
@@ -22,19 +16,16 @@ interface FormState {
 const EMPTY: FormState = { name: '', categoryId: '', categoryEn: '', proficiency: '70' }
 
 export default function Skills() {
-  const { data, isLoading, reload } = useFetch(getDashSkills)
-  const skills = data ?? []
+  const { items, isLoading, saving, errors, clearErrors, create, update, remove } = useDashSkills()
 
   const [open, setOpen] = useState(false)
   const [editing, setEditing] = useState<DashSkill | null>(null)
   const [form, setForm] = useState<FormState>(EMPTY)
-  const [saving, setSaving] = useState(false)
-  const [errors, setErrors] = useState<Record<string, string>>({})
 
   function openCreate() {
     setEditing(null)
     setForm(EMPTY)
-    setErrors({})
+    clearErrors()
     setOpen(true)
   }
 
@@ -46,41 +37,24 @@ export default function Skills() {
       categoryEn: s.category.en,
       proficiency: String(s.proficiency),
     })
-    setErrors({})
+    clearErrors()
     setOpen(true)
   }
 
   async function handleSave(e: React.FormEvent) {
     e.preventDefault()
-    setSaving(true)
-    setErrors({})
     const payload = {
       name: form.name,
       category: { id: form.categoryId, en: form.categoryEn },
       proficiency: Number(form.proficiency) || 0,
     }
-    try {
-      if (editing) await updateSkill(editing.uuid, payload)
-      else await createSkill(payload)
-      setOpen(false)
-      reload()
-    } catch (err) {
-      const e2 = err as { response?: { data?: { errors?: Record<string, string[]> } } }
-      const apiErrors = e2.response?.data?.errors
-      if (apiErrors) {
-        const mapped: Record<string, string> = {}
-        for (const [k, v] of Object.entries(apiErrors)) mapped[k] = v[0]
-        setErrors(mapped)
-      }
-    } finally {
-      setSaving(false)
-    }
+    const ok = editing ? await update(editing.uuid, payload) : await create(payload)
+    if (ok) setOpen(false)
   }
 
   async function handleDelete(s: DashSkill) {
     if (!window.confirm(`Hapus keahlian "${s.name}"?`)) return
-    await deleteSkill(s.uuid)
-    reload()
+    await remove(s.uuid)
   }
 
   return (
@@ -91,7 +65,7 @@ export default function Skills() {
             Keahlian
           </h1>
           <p className="mt-1 text-[var(--color-text-muted)]">
-            {isLoading ? 'Memuat…' : `${skills.length} keahlian`}
+            {isLoading ? 'Memuat…' : `${items.length} keahlian`}
           </p>
         </div>
         <Button size="sm" onClick={openCreate}>
@@ -110,7 +84,7 @@ export default function Skills() {
             </tr>
           </thead>
           <tbody>
-            {skills.map(s => (
+            {items.map(s => (
               <tr
                 key={s.uuid}
                 className="border-b border-[var(--color-border)] transition-colors last:border-0 hover:bg-[var(--color-surface-raised)]/50"

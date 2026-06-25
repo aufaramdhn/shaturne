@@ -9,9 +9,9 @@ export const en: typeof id = {
     contact: 'Contact',
   },
   hero: {
-    headlineA: 'Interfaces that are clean,',
-    headlineHi: 'well-documented',
-    headlineB: 'and a joy to use.',
+    headlineA: "I'm",
+    headlineHi: 'Aufa Ramadhan',
+    headlineB: ', fullstack web developer.',
     ctaProjects: 'View Projects',
     ctaContact: 'Get in Touch',
     statYears: 'Years',
@@ -20,9 +20,9 @@ export const en: typeof id = {
   },
   about: {
     eyebrow: 'About',
-    title: 'Across disciplines, one habit: documenting.',
-    p1: 'I build web interfaces with React and TypeScript, and treat documentation as part of the product — not an afterthought.',
-    p2: 'The habit carries over from cross-field work: penetration test reports with risk heatmaps, game design documents, even IoT lab write-ups. The subject changes, but the method stays the same — written down neatly so others can rely on it.',
+    title: 'Clean frontend, solid backend.',
+    p1: 'I build end-to-end web applications with React, TypeScript, and Laravel: from responsive interfaces to well-documented REST APIs.',
+    p2: "I'm also familiar with web application security: OWASP Top 10 penetration testing, authentication management, and secure development practices on both backend and frontend.",
   },
   skills: {
     eyebrow: 'Skills',
@@ -30,7 +30,7 @@ export const en: typeof id = {
   },
   experience: {
     eyebrow: 'Experience',
-    title: 'Two years across organizations.',
+    title: 'Two years building on the web.',
     present: 'Present',
   },
   projectsPreview: {
@@ -45,9 +45,9 @@ export const en: typeof id = {
     cta: 'Get in Touch',
   },
   projectsPage: {
-    entries: '{count} entries',
+    entries: '{count} projects',
     title: 'Projects',
-    intro: 'A collection of cross-disciplinary work — each with its own notes.',
+    intro: 'Web applications and tools I have worked on.',
   },
   projectDetail: {
     back: 'Projects',
@@ -66,7 +66,7 @@ export const en: typeof id = {
     title: "Let's talk.",
     intro: 'Have a project, a question, or just want to say hi? Send a message through this form.',
     direct: 'Direct',
-    reply: 'Usually replies within 1–2 days.',
+    reply: 'Usually replies within 1 to 2 days.',
     name: 'Name',
     email: 'Email',
     message: 'Message',
@@ -75,6 +75,7 @@ export const en: typeof id = {
     messagePlaceholder: 'Write your message…',
     send: 'Send Message',
     sending: 'Sending…',
+    cooldownBtn: 'Wait {time}',
     successTitle: 'Message sent.',
     successBody: 'Thanks for reaching out. A reply will be sent to your email.',
     sendAnother: 'Send another message',
@@ -87,7 +88,7 @@ export const en: typeof id = {
   },
   notFound: {
     title: 'Page not found.',
-    body: 'The link may be wrong or the page has moved. This note is not in the archive.',
+    body: 'The link may be wrong or the page has moved.',
     home: 'Back to Home',
   },
   spotify: {
@@ -96,23 +97,25 @@ export const en: typeof id = {
     online: 'online',
     offline: 'offline',
     offlineTitle: 'Currently offline',
-    offlineBody: 'Not listening to anything right now — check back later.',
+    offlineBody: 'Not listening to anything right now, check back later.',
   },
   footer: {
-    tagline: 'Tidy working notes — built with React & Laravel.',
+    tagline: 'Built with React and Laravel.',
+  },
+  preloader: {
+    tagline: 'work portfolio',
   },
   seo: {
-    homeTitle: 'Shaturne — Naufa Ramadhana, Fullstack Developer',
+    homeTitle: 'Shaturne | Aufa Ramadhan, Fullstack Developer',
     homeDesc:
-      'Portfolio of Naufa Ramadhana — a fullstack developer building clean, well-documented interfaces with React, TypeScript, and Laravel.',
-    projectsTitle: 'Projects — Shaturne',
-    projectsDesc:
-      'A collection of cross-disciplinary work by Naufa Ramadhana — each with its own notes.',
-    contactTitle: 'Contact — Shaturne',
+      'Portfolio of Aufa Ramadhan, a fullstack web developer building end-to-end web applications with React, TypeScript, and Laravel.',
+    projectsTitle: 'Projects | Shaturne',
+    projectsDesc: 'Web applications and tools built by Aufa Ramadhan.',
+    contactTitle: 'Contact | Shaturne',
     contactDesc:
-      'Get in touch with Naufa Ramadhana for collaboration, questions, or technical discussion on web development.',
-    notFoundTitle: '404 — Page not found — Shaturne',
-    projectTitleTpl: '{title} — Projects — Shaturne',
+      'Get in touch with Aufa Ramadhan for collaboration, questions, or technical discussion on web development.',
+    notFoundTitle: '404 | Page not found | Shaturne',
+    projectTitleTpl: '{title} | Projects | Shaturne',
     jobTitle: 'Fullstack Developer',
   },
 }

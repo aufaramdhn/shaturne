@@ -1,16 +1,28 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-
-// Initial-load screen (themed). A short multilingual greeting cycles in/out,
-// then the brand reveals; finally the whole panel wipes upward to show the app.
+import { isLang } from '@/Locales'
+import { dictionaries } from '@/Locales'
+import type { Lang } from '@/Locales'
 
 const GREETINGS = ['Halo', 'Hello', 'Hola', 'Selamat datang']
-const WORD_MS = 520
+const WORD_MS = 700
+const BRAND_MS = 2400
+
+function detectPreloaderLang(): Lang {
+  const pathLang = window.location.pathname.split('/')[1]
+  if (isLang(pathLang)) return pathLang
+  const stored = localStorage.getItem('lang')
+  if (isLang(stored)) return stored
+  return 'id'
+}
 
 export default function Preloader() {
   const [index, setIndex] = useState(0)
   const [phase, setPhase] = useState<'words' | 'brand'>('words')
   const [done, setDone] = useState(false)
+
+  const lang = detectPreloaderLang()
+  const tagline = dictionaries[lang].preloader.tagline
 
   useEffect(() => {
     const timers: number[] = []
@@ -18,11 +30,11 @@ export default function Preloader() {
       if (i > 0) timers.push(window.setTimeout(() => setIndex(i), i * WORD_MS))
     })
     timers.push(window.setTimeout(() => setPhase('brand'), GREETINGS.length * WORD_MS))
-    timers.push(window.setTimeout(() => setDone(true), GREETINGS.length * WORD_MS + 1400))
+    timers.push(window.setTimeout(() => setDone(true), GREETINGS.length * WORD_MS + BRAND_MS))
     return () => timers.forEach(t => window.clearTimeout(t))
   }, [])
 
-  const total = (GREETINGS.length * WORD_MS + 1400) / 1000
+  const total = (GREETINGS.length * WORD_MS + BRAND_MS) / 1000
 
   return (
     <AnimatePresence>
@@ -32,7 +44,6 @@ export default function Preloader() {
           exit={{ y: '-100%', transition: { duration: 0.6, ease: [0.76, 0, 0.24, 1] } }}
           className="fixed inset-0 z-[100] grid place-items-center overflow-hidden bg-[var(--color-bg)]"
         >
-          {/* top progress bar — fills across the whole intro */}
           <motion.div
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
@@ -66,7 +77,7 @@ export default function Preloader() {
                     Shaturne
                   </h1>
                   <p className="font-[var(--font-mono)] text-[0.8125rem] uppercase tracking-[0.25em] text-[var(--color-accent)]">
-                    catatan kerja
+                    {tagline}
                   </p>
                   <div className="flex gap-2">
                     {[0, 1, 2].map(i => (

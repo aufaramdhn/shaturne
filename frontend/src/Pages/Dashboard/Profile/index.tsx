@@ -1,38 +1,16 @@
 import { useState } from 'react'
 import Input from '@/Components/Elements/Input'
 import Button from '@/Components/Elements/Button'
-import { useAuth } from '@/Hooks/Auth/useAuth'
-import { updateProfile } from '@/Services/Dashboard/dashboardService'
+import { useProfile } from '@/Hooks/Dashboard/useProfile'
 
 export default function Profile() {
-  const { user, applyUser } = useAuth()
+  const { user, saving, saved, errors, save } = useProfile()
   const [name, setName] = useState(user?.name ?? '')
   const [email, setEmail] = useState(user?.email ?? '')
-  const [saving, setSaving] = useState(false)
-  const [saved, setSaved] = useState(false)
-  const [errors, setErrors] = useState<Record<string, string>>({})
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    setSaving(true)
-    setSaved(false)
-    setErrors({})
-    try {
-      const updated = await updateProfile({ name, email })
-      applyUser(updated)
-      setSaved(true)
-      window.setTimeout(() => setSaved(false), 2500)
-    } catch (err) {
-      const e2 = err as { response?: { data?: { errors?: Record<string, string[]> } } }
-      const apiErrors = e2.response?.data?.errors
-      if (apiErrors) {
-        const mapped: Record<string, string> = {}
-        for (const [k, v] of Object.entries(apiErrors)) mapped[k] = v[0]
-        setErrors(mapped)
-      }
-    } finally {
-      setSaving(false)
-    }
+    await save(name, email)
   }
 
   return (

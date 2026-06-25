@@ -3,8 +3,8 @@ import { Navigate, useLocation, useOutlet, useParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { isLang, DEFAULT_LANG } from '@/Locales'
 import { LanguageProvider } from '@/Context/LanguageContext'
-import Navbar from '@/Components/Fragments/Navbar'
-import Footer from '@/Components/Fragments/Footer'
+import Navbar from '@/Components/Fragments/Navigation/Navbar'
+import Footer from '@/Components/Fragments/Navigation/Footer'
 import AuroraBackground from '@/Components/Fragments/AuroraBackground'
 
 // Public template (§3). Reads the :lang route param, validates it, and provides

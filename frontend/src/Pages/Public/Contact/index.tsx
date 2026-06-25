@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom'
-import ContactForm from '@/Components/Fragments/ContactForm'
+import { ErrorBoundary } from '@/Components/Elements/ErrorBoundary'
+import ContactForm from '@/Components/Fragments/Forms/ContactForm'
 import { useLanguage } from '@/Context/LanguageContext'
 import { useSeo, buildAlternates } from '@/Hooks/Common/useSeo'
 import { PROFILE } from '@/Constants/dummyData'
@@ -30,7 +31,9 @@ export default function Contact() {
 
       <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,1fr)_14rem]">
         <div className="max-w-[40rem]">
-          <ContactForm />
+          <ErrorBoundary>
+            <ContactForm />
+          </ErrorBoundary>
         </div>
 
         <aside className="flex flex-col gap-8">

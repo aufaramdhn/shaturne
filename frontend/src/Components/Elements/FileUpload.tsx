@@ -145,7 +145,7 @@ export default function FileUpload({
           {full ? 'Batas gambar tercapai' : 'Seret gambar atau klik untuk unggah'}
         </span>
         <span className="font-[var(--font-mono)] text-[0.7rem] text-[var(--color-text-muted)]">
-          JPG · PNG · WEBP — maks 4 MB — {value.length}/{maxFiles}
+          JPG · PNG · WEBP, maks 4 MB · {value.length}/{maxFiles}
         </span>
       </button>
 

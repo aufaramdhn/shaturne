@@ -1,10 +1,9 @@
 import { useAuth } from '@/Hooks/Auth/useAuth'
-import { useFetch } from '@/Hooks/Dashboard/useFetch'
-import { getOverview } from '@/Services/Dashboard/dashboardService'
+import { useOverview } from '@/Hooks/Dashboard/useOverview'
 
 export default function Overview() {
   const { user } = useAuth()
-  const { data, isLoading } = useFetch(getOverview)
+  const { data, isLoading } = useOverview()
 
   const stats = [
     { label: 'Total Proyek', value: data?.projects },
@@ -29,7 +28,7 @@ export default function Overview() {
             className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/60 p-5"
           >
             <p className="font-[var(--font-display)] text-[2rem] font-bold leading-none text-[var(--color-text)]">
-              {isLoading ? '—' : (s.value ?? 0)}
+              {isLoading ? '…' : (s.value ?? 0)}
             </p>
             <p className="mt-2 font-[var(--font-mono)] text-[0.75rem] uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
               {s.label}

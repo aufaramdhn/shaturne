@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { ChevronDown } from 'lucide-react'
 
 // Custom select (§6.4). Native <select> replaced by button trigger + listbox popup.
 // Keyboard: ↑/↓ navigate, Enter/Space select, Escape close, Tab moves focus.
@@ -134,22 +135,11 @@ export default function Select({
           >
             {selected ? selected.label : placeholder}
           </span>
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 14 14"
-            fill="none"
+          <ChevronDown
+            size={15}
             aria-hidden="true"
-            className={`shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
-          >
-            <path
-              d="M3 5L7 9L11 5"
-              stroke="var(--color-text-muted)"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+            className={`shrink-0 text-[var(--color-text-muted)] transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+          />
         </button>
 
         <AnimatePresence>

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { Globe, ChevronDown } from 'lucide-react'
 import { useLanguage } from '@/Context/LanguageContext'
 import { LANGS } from '@/Locales'
 import type { Lang } from '@/Locales'
@@ -39,26 +40,15 @@ export default function LanguageSwitcher() {
         onKeyDown={e => e.key === 'Escape' && setOpen(false)}
         className="flex h-11 items-center gap-1.5 rounded-lg px-2.5 text-[var(--color-text-muted)] transition-colors duration-200 hover:text-[var(--color-text)]"
       >
-        <GlobeIcon />
+        <Globe size={17} aria-hidden="true" />
         <span className="font-[var(--font-mono)] text-[0.8125rem] font-medium tracking-[0.04em]">
           {LABELS[lang].code}
         </span>
-        <svg
-          width="12"
-          height="12"
-          viewBox="0 0 14 14"
-          fill="none"
+        <ChevronDown
+          size={13}
           aria-hidden="true"
           className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
-        >
-          <path
-            d="M3 5L7 9L11 5"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        />
       </button>
 
       <AnimatePresence>
@@ -99,19 +89,5 @@ export default function LanguageSwitcher() {
         )}
       </AnimatePresence>
     </div>
-  )
-}
-
-function GlobeIcon() {
-  return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
-      <path
-        d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-    </svg>
   )
 }

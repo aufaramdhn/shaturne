@@ -1,7 +1,5 @@
 import SkeletonBox from '@/Components/Elements/SkeletonBox'
 
-// Mirrors ProjectDetail layout (§7.4). Used in Phase 4 async loading.
-
 export default function ProjectDetailSkeleton() {
   return (
     <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8">

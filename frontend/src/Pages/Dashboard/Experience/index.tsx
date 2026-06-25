@@ -4,13 +4,7 @@ import Input from '@/Components/Elements/Input'
 import Textarea from '@/Components/Elements/Textarea'
 import Select from '@/Components/Elements/Select'
 import Modal from '@/Components/Elements/Modal'
-import { useFetch } from '@/Hooks/Dashboard/useFetch'
-import {
-  getDashExperience,
-  createExperience,
-  updateExperience,
-  deleteExperience,
-} from '@/Services/Dashboard/dashboardService'
+import { useDashExperience } from '@/Hooks/Dashboard/useDashExperience'
 import type { DashExperience } from '@/Services/Dashboard/dashboardService'
 
 const TYPES = [
@@ -43,19 +37,17 @@ const EMPTY: FormState = {
 }
 
 export default function Experience() {
-  const { data, isLoading, reload } = useFetch(getDashExperience)
-  const experiences = data ?? []
+  const { items, isLoading, saving, errors, clearErrors, create, update, remove } =
+    useDashExperience()
 
   const [open, setOpen] = useState(false)
   const [editing, setEditing] = useState<DashExperience | null>(null)
   const [form, setForm] = useState<FormState>(EMPTY)
-  const [saving, setSaving] = useState(false)
-  const [errors, setErrors] = useState<Record<string, string>>({})
 
   function openCreate() {
     setEditing(null)
     setForm(EMPTY)
-    setErrors({})
+    clearErrors()
     setOpen(true)
   }
 
@@ -71,14 +63,12 @@ export default function Experience() {
       descId: exp.description?.id ?? '',
       descEn: exp.description?.en ?? '',
     })
-    setErrors({})
+    clearErrors()
     setOpen(true)
   }
 
   async function handleSave(e: React.FormEvent) {
     e.preventDefault()
-    setSaving(true)
-    setErrors({})
     const payload = {
       title: { id: form.titleId, en: form.titleEn },
       organization: form.organization,
@@ -87,28 +77,13 @@ export default function Experience() {
       type: form.type,
       description: { id: form.descId, en: form.descEn },
     }
-    try {
-      if (editing) await updateExperience(editing.uuid, payload)
-      else await createExperience(payload)
-      setOpen(false)
-      reload()
-    } catch (err) {
-      const e2 = err as { response?: { data?: { errors?: Record<string, string[]> } } }
-      const apiErrors = e2.response?.data?.errors
-      if (apiErrors) {
-        const mapped: Record<string, string> = {}
-        for (const [k, v] of Object.entries(apiErrors)) mapped[k] = v[0]
-        setErrors(mapped)
-      }
-    } finally {
-      setSaving(false)
-    }
+    const ok = editing ? await update(editing.uuid, payload) : await create(payload)
+    if (ok) setOpen(false)
   }
 
   async function handleDelete(exp: DashExperience) {
     if (!window.confirm(`Hapus "${exp.title.id}"?`)) return
-    await deleteExperience(exp.uuid)
-    reload()
+    await remove(exp.uuid)
   }
 
   return (
@@ -119,7 +94,7 @@ export default function Experience() {
             Pengalaman
           </h1>
           <p className="mt-1 text-[var(--color-text-muted)]">
-            {isLoading ? 'Memuat…' : `${experiences.length} entri`}
+            {isLoading ? 'Memuat…' : `${items.length} entri`}
           </p>
         </div>
         <Button size="sm" onClick={openCreate}>
@@ -128,22 +103,22 @@ export default function Experience() {
       </header>
 
       <div className="flex flex-col gap-3">
-        {experiences.map(exp => (
+        {items.map(exp => (
           <div
             key={exp.uuid}
             className="flex items-start justify-between gap-4 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/60 p-5"
           >
             <div>
               <span className="font-[var(--font-mono)] text-[0.75rem] tracking-[0.04em] text-[var(--color-accent)]">
-                {exp.start_date?.slice(0, 4)} —{' '}
+                {exp.start_date?.slice(0, 4)} /{' '}
                 {exp.end_date ? exp.end_date.slice(0, 4) : 'Sekarang'}
               </span>
               <h2 className="mt-1 text-[1.0625rem] font-bold text-[var(--color-text)]">
-                {exp.title.id}{' '}
-                <span className="font-normal text-[var(--color-text-muted)]">
-                  · {exp.organization}
-                </span>
+                {exp.title.id}
               </h2>
+              <span className="text-[0.875rem] text-[var(--color-text-muted)]">
+                {exp.organization}
+              </span>
             </div>
             <div className="flex shrink-0 gap-2">
               <button

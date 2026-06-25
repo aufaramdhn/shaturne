@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Input from '@/Components/Elements/Input'
 import Textarea from '@/Components/Elements/Textarea'
 import Button from '@/Components/Elements/Button'
@@ -14,12 +14,48 @@ interface FormState {
 }
 
 const EMPTY: FormState = { name: '', email: '', message: '', honeypot: '' }
+const COOLDOWN_MS = 10 * 60 * 1000
+const COOLDOWN_KEY = 'shaturne_contact_cooldown'
+
+function getCooldownRemaining(): number {
+  const until = Number(localStorage.getItem(COOLDOWN_KEY) || 0)
+  return Math.max(0, until - Date.now())
+}
+
+function setCooldown(): void {
+  localStorage.setItem(COOLDOWN_KEY, String(Date.now() + COOLDOWN_MS))
+}
+
+function formatTime(ms: number): string {
+  const m = Math.floor(ms / 60000)
+  const s = Math.floor((ms % 60000) / 1000)
+  return `${m}:${s.toString().padStart(2, '0')}`
+}
 
 export default function ContactForm() {
   const { t } = useLanguage()
   const { status, fieldErrors, submit, reset } = useContact()
   const [form, setForm] = useState<FormState>(EMPTY)
   const [clientErrors, setClientErrors] = useState<Record<string, string>>({})
+  const [cooldownMs, setCooldownMs] = useState(() => getCooldownRemaining())
+  const intervalRef = useRef<number | null>(null)
+
+  const isOnCooldown = cooldownMs > 0
+
+  useEffect(() => {
+    if (!isOnCooldown) return
+    intervalRef.current = window.setInterval(() => {
+      const rem = getCooldownRemaining()
+      setCooldownMs(rem)
+      if (rem <= 0 && intervalRef.current) {
+        window.clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
+    }, 1000)
+    return () => {
+      if (intervalRef.current) window.clearInterval(intervalRef.current)
+    }
+  }, [isOnCooldown])
 
   function update<K extends keyof FormState>(key: K, value: string) {
     setForm(f => ({ ...f, [key]: value }))
@@ -45,10 +81,16 @@ export default function ContactForm() {
     }
     setClientErrors({})
     const ok = await submit(form)
-    if (ok) setForm(EMPTY)
+    if (ok) {
+      setForm(EMPTY)
+      setCooldown()
+      setCooldownMs(COOLDOWN_MS)
+    }
   }
 
   const errorFor = (field: keyof FormState) => clientErrors[field] || fieldErrors[field]
+  const isCooling = cooldownMs > 0
+  const isSubmitting = status === 'submitting'
 
   if (status === 'success') {
     return (
@@ -119,8 +161,17 @@ export default function ContactForm() {
         <p className="text-[0.875rem] text-[var(--color-error)]">{t('contact.errSend')}</p>
       )}
 
-      <Button type="submit" isLoading={status === 'submitting'} className="self-start">
-        {status === 'submitting' ? t('contact.sending') : t('contact.send')}
+      <Button
+        type="submit"
+        isLoading={isSubmitting}
+        disabled={isSubmitting || isCooling}
+        className="self-start"
+      >
+        {isSubmitting
+          ? t('contact.sending')
+          : isCooling
+            ? t('contact.cooldownBtn', { time: formatTime(cooldownMs) })
+            : t('contact.send')}
       </Button>
     </form>
   )

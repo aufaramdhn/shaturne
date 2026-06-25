@@ -2,9 +2,6 @@ import { motion } from 'framer-motion'
 import Badge from '@/Components/Elements/Badge'
 import { useLanguage } from '@/Context/LanguageContext'
 
-// "catatan-kerja.md" floating panel — the documentation motif as a sleek card.
-// Gentle float (always on; global MotionConfig forces motion).
-
 export default function NotesCard() {
   const { lang } = useLanguage()
   return (
@@ -25,8 +22,8 @@ export default function NotesCard() {
         <p className="text-[var(--color-accent)]">
           {lang === 'en' ? '# Currently building' : '# Sekarang dibangun'}
         </p>
-        <p className="text-[var(--color-text)]">— Shaturne Portfolio</p>
-        <p className="text-[var(--color-text-muted)]">— React · TypeScript · Laravel</p>
+        <p className="text-[var(--color-text)]">{'// Shaturne Portfolio'}</p>
+        <p className="text-[var(--color-text-muted)]">{'// React · TypeScript · Laravel'}</p>
         <div className="mt-1 flex flex-wrap gap-1.5">
           <Badge variant="accent">terdokumentasi</Badge>
           <Badge variant="alt">UUID</Badge>

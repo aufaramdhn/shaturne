@@ -12,5 +12,5 @@ export function periodLabel(start: string | null, end: string | null, present: s
   const year = (d: string | null) => (d ? d.slice(0, 4) : '')
   const startY = year(start)
   const endY = end ? year(end) : present
-  return startY ? `${startY} — ${endY}` : endY
+  return startY ? `${startY} / ${endY}` : endY
 }
