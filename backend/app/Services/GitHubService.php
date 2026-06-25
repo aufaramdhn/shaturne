@@ -11,7 +11,7 @@ class GitHubService
 
     private const CACHE_TTL = 21600; // 6 hours
 
-    /** @return array{weeks: array<int, array{firstDay: string, contributionDays: array<int, array{date: string, contributionCount: int, weekday: int}>}>, totalContributions: int, availableYears: int[]} */
+    /** @return array{weeks: list<array{firstDay: string, contributionDays: list<array{date: string, contributionCount: int, weekday: int}>}>, totalContributions: int, availableYears: list<int>} */
     public function contributions(int $year): array
     {
         $token = config('services.github.token');
@@ -83,7 +83,7 @@ class GitHubService
         ];
     }
 
-    /** @return array{weeks: array<empty>, totalContributions: int, availableYears: int[]} */
+    /** @return array{weeks: list<array{firstDay: string, contributionDays: list<array{date: string, contributionCount: int, weekday: int}>}>, totalContributions: int, availableYears: list<int>} */
     private function empty(int $year): array
     {
         return [
