@@ -73,9 +73,9 @@ export default function Preloader() {
                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                   className="flex flex-col items-center gap-5"
                 >
-                  <h1 className="text-[length:var(--text-hero)] font-bold tracking-[-0.03em] text-[var(--color-text)]">
+                  <p className="text-[length:var(--text-hero)] font-bold tracking-[-0.03em] text-[var(--color-text)]">
                     Shaturne
-                  </h1>
+                  </p>
                   <p className="font-[var(--font-mono)] text-[0.8125rem] uppercase tracking-[0.25em] text-[var(--color-accent)]">
                     {tagline}
                   </p>

@@ -120,9 +120,9 @@ class DashboardProjectTest extends TestCase
         $fakeUuid = '00000000-0000-0000-0000-000000000000';
 
         $this->putJson("/api/v1/dashboard/projects/{$fakeUuid}", [
-            'title'       => ['id' => 'x', 'en' => 'x'],
+            'title' => ['id' => 'x', 'en' => 'x'],
             'description' => ['id' => 'x', 'en' => 'x'],
-            'stack'       => [],
+            'stack' => [],
             'is_published' => false,
         ])->assertNotFound();
     }
@@ -141,9 +141,9 @@ class DashboardProjectTest extends TestCase
         Sanctum::actingAs(User::factory()->create());
 
         $this->putJson("/api/v1/dashboard/projects/{$project->id}", [
-            'title'       => ['id' => 'Y', 'en' => 'Y'],
+            'title' => ['id' => 'Y', 'en' => 'Y'],
             'description' => ['id' => 'x', 'en' => 'x'],
-            'stack'       => [],
+            'stack' => [],
             'is_published' => false,
         ])->assertForbidden();
 

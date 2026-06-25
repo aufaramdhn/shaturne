@@ -28,8 +28,8 @@ class DatabaseSeeder extends Seeder
         // ── Skills ───────────────────────────────────────────────────────
         $cat = [
             'Frontend' => ['id' => 'Frontend', 'en' => 'Frontend'],
-            'Backend'  => ['id' => 'Backend', 'en' => 'Backend'],
-            'Tools'    => ['id' => 'Tools & Keamanan Web', 'en' => 'Tools & Web Security'],
+            'Backend' => ['id' => 'Backend', 'en' => 'Backend'],
+            'Tools' => ['id' => 'Tools & Keamanan Web', 'en' => 'Tools & Web Security'],
         ];
         $skills = [
             ['React', 'Frontend', 92], ['TypeScript', 'Frontend', 88],
@@ -90,27 +90,27 @@ class DatabaseSeeder extends Seeder
         // ── Experiences ──────────────────────────────────────────────────
         $experiences = [
             [
-                'title'        => ['id' => 'Fullstack Developer', 'en' => 'Fullstack Developer'],
+                'title' => ['id' => 'Fullstack Developer', 'en' => 'Fullstack Developer'],
                 'organization' => 'Proyek Lepas',
-                'start_date'   => '2024-01-01',
-                'end_date'     => null,
-                'description'  => [
+                'start_date' => '2024-01-01',
+                'end_date' => null,
+                'description' => [
                     'id' => 'Membangun aplikasi web end-to-end dengan React, TypeScript, dan Laravel — dari desain antarmuka hingga REST API, autentikasi, dan konfigurasi deployment.',
                     'en' => 'Building end-to-end web applications with React, TypeScript, and Laravel — from interface design to REST APIs, authentication, and deployment setup.',
                 ],
-                'type'       => 'work',
+                'type' => 'work',
                 'sort_order' => 1,
             ],
             [
-                'title'        => ['id' => 'Mahasiswa Teknik Informatika', 'en' => 'Computer Science Student'],
+                'title' => ['id' => 'Mahasiswa Teknik Informatika', 'en' => 'Computer Science Student'],
                 'organization' => 'Universitas Pasundan',
-                'start_date'   => '2022-09-01',
-                'end_date'     => null,
-                'description'  => [
+                'start_date' => '2022-09-01',
+                'end_date' => null,
+                'description' => [
                     'id' => 'Mendalami rekayasa perangkat lunak dan pengembangan web, dengan fondasi kuat di algoritma, arsitektur sistem, dan praktik pengembangan modern.',
                     'en' => 'Studying software engineering and web development, building a strong foundation in algorithms, system architecture, and modern development practices.',
                 ],
-                'type'       => 'education',
+                'type' => 'education',
                 'sort_order' => 2,
             ],
         ];

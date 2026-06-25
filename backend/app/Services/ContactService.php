@@ -17,8 +17,8 @@ class ContactService
     public function store(array $data): Message
     {
         $message = DB::transaction(fn () => Message::create([
-            'name'    => $data['name'],
-            'email'   => $data['email'],
+            'name' => $data['name'],
+            'email' => $data['email'],
             'message' => $data['message'],
         ]));
 
@@ -28,7 +28,7 @@ class ContactService
         } catch (\Exception $e) {
             Log::error('Mail dispatch failed', [
                 'message_id' => $message->id,
-                'error'      => $e->getMessage(),
+                'error' => $e->getMessage(),
             ]);
         }
 

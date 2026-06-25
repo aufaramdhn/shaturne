@@ -114,8 +114,8 @@ class PublicApiTest extends TestCase
         Mail::fake();
 
         $this->postJson('/api/v1/contact', [
-            'name'    => 'Budi',
-            'email'   => 'budi@example.com',
+            'name' => 'Budi',
+            'email' => 'budi@example.com',
             'message' => 'Halo, ini pesan uji yang cukup panjang.',
         ])->assertCreated()->assertJsonPath('success', true);
 

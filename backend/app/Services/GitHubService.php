@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Http;
 class GitHubService
 {
     private const GRAPHQL = 'https://api.github.com/graphql';
+
     private const CACHE_TTL = 21600; // 6 hours
 
     /** @return array{weeks: array<int, array{firstDay: string, contributionDays: array<int, array{date: string, contributionCount: int, weekday: int}>}>, totalContributions: int, availableYears: int[]} */
@@ -30,7 +31,7 @@ class GitHubService
     private function fetch(string $token, string $username, int $year): array
     {
         $from = "{$year}-01-01T00:00:00Z";
-        $to   = "{$year}-12-31T23:59:59Z";
+        $to = "{$year}-12-31T23:59:59Z";
 
         $query = <<<'GQL'
         query($login: String!, $from: DateTime!, $to: DateTime!) {
@@ -57,7 +58,7 @@ class GitHubService
             ->withHeaders(['Accept' => 'application/vnd.github+json'])
             ->timeout(10)
             ->post(self::GRAPHQL, [
-                'query'     => $query,
+                'query' => $query,
                 'variables' => ['login' => $username, 'from' => $from, 'to' => $to],
             ]);
 
@@ -76,9 +77,9 @@ class GitHubService
         $availableYears = range(date('Y'), $startYear);
 
         return [
-            'weeks'              => $calendar['weeks'],
+            'weeks' => $calendar['weeks'],
             'totalContributions' => $calendar['totalContributions'],
-            'availableYears'     => $availableYears,
+            'availableYears' => $availableYears,
         ];
     }
 
@@ -86,9 +87,9 @@ class GitHubService
     private function empty(int $year): array
     {
         return [
-            'weeks'              => [],
+            'weeks' => [],
             'totalContributions' => 0,
-            'availableYears'     => [$year],
+            'availableYears' => [$year],
         ];
     }
 }

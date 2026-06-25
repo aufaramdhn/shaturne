@@ -2,13 +2,14 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Skill;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreSkillRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->can('create', \App\Models\Skill::class);
+        return $this->user()->can('create', Skill::class);
     }
 
     /**

@@ -9,13 +9,13 @@ test('root redirects to a localized path', async ({ page }) => {
 
 test('English locale renders the English hero', async ({ page }) => {
   await page.goto('/en')
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('well-documented')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Aufa Ramadhan')
   await expect(page.locator('html')).toHaveAttribute('lang', 'en')
 })
 
 test('Indonesian locale renders the Indonesian hero', async ({ page }) => {
   await page.goto('/id')
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('terdokumentasi')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Aufa Ramadhan')
   await expect(page.locator('html')).toHaveAttribute('lang', 'id')
 })
 

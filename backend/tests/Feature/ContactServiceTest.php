@@ -18,7 +18,7 @@ class ContactServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->service = new ContactService();
+        $this->service = new ContactService;
     }
 
     public function test_store_creates_message_record_in_database(): void
@@ -26,14 +26,14 @@ class ContactServiceTest extends TestCase
         Mail::fake();
 
         $message = $this->service->store([
-            'name'    => 'Andi',
-            'email'   => 'andi@example.com',
+            'name' => 'Andi',
+            'email' => 'andi@example.com',
             'message' => 'Ini pesan lengkap dari Andi.',
         ]);
 
         $this->assertDatabaseHas('messages', [
-            'name'    => 'Andi',
-            'email'   => 'andi@example.com',
+            'name' => 'Andi',
+            'email' => 'andi@example.com',
             'message' => 'Ini pesan lengkap dari Andi.',
             'is_read' => false,
         ]);
@@ -47,8 +47,8 @@ class ContactServiceTest extends TestCase
         Mail::fake();
 
         $this->service->store([
-            'name'    => 'Sari',
-            'email'   => 'sari@example.com',
+            'name' => 'Sari',
+            'email' => 'sari@example.com',
             'message' => 'Pesan dari Sari yang cukup panjang.',
         ]);
 
@@ -72,8 +72,8 @@ class ContactServiceTest extends TestCase
             ->andThrow(new \RuntimeException('SMTP unreachable'));
 
         $message = $this->service->store([
-            'name'    => 'Dian',
-            'email'   => 'dian@example.com',
+            'name' => 'Dian',
+            'email' => 'dian@example.com',
             'message' => 'Pesan dari Dian yang panjangnya cukup.',
         ]);
 
