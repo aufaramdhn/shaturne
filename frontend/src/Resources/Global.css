@@ -1,6 +1,3 @@
-/* ─── Google Fonts (must precede Tailwind import) ──────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Hanken+Grotesk:wght@300..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
-
 @import 'tailwindcss';
 
 /* ─── Design tokens — Dark SaaS (navy + cyan glow). Default = dark. ──── */

@@ -35,7 +35,7 @@ export default function LanguageSwitcher() {
         type="button"
         aria-haspopup="listbox"
         aria-expanded={open}
-        aria-label="Ganti bahasa"
+        aria-label={`Ganti bahasa: ${LABELS[lang].code}`}
         onClick={() => setOpen(o => !o)}
         onKeyDown={e => e.key === 'Escape' && setOpen(false)}
         className="flex h-11 items-center gap-1.5 rounded-lg px-2.5 text-[var(--color-text-muted)] transition-colors duration-200 hover:text-[var(--color-text)]"
