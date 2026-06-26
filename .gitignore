@@ -39,3 +39,4 @@ coverage/
 # Logs
 *.log
 docs/
+lighthouse-report*.json
