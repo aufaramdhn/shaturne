@@ -33,10 +33,12 @@ Route::prefix('api/v1')->group(function () {
     });
 
     // ── Public ───────────────────────────────────────────────────────────
-    Route::get('projects', [ProjectController::class, 'index']);
-    Route::get('projects/{slug}', [ProjectController::class, 'show']);
-    Route::get('skills', [SkillController::class, 'index']);
-    Route::get('experience', [ExperienceController::class, 'index']);
+    Route::middleware('throttle:120,1')->group(function () {
+        Route::get('projects', [ProjectController::class, 'index']);
+        Route::get('projects/{slug}', [ProjectController::class, 'show']);
+        Route::get('skills', [SkillController::class, 'index']);
+        Route::get('experience', [ExperienceController::class, 'index']);
+    });
     Route::post('contact', [MessageController::class, 'store'])
         ->middleware('throttle:3,10'); // anti-spam: 3 requests per 10 minutes per IP
     Route::get('now-playing', [NowPlayingController::class, 'index'])
