@@ -213,15 +213,30 @@ DELETE /api/v1/dashboard/projects/{uuid}
 ```
 
 ### 6.2 Rate Limiting
-```php
-// Semua public write endpoint wajib rate limit
-Route::post('contact', [MessageController::class, 'store'])
-    ->middleware('throttle:3,10'); // 3 request per 10 menit per IP
 
-// Endpoint yang sering dipoll
-Route::get('now-playing', [NowPlayingController::class, 'index'])
-    ->middleware('throttle:60,1');
+Semua route punya throttle — tidak ada endpoint tanpa limit:
+
+```php
+// Public GET (projects, skills, experience) — 120 req/min per IP
+Route::middleware('throttle:120,1')->group(function () {
+    Route::get('projects', ...);
+    Route::get('projects/{slug}', ...);
+    Route::get('skills', ...);
+    Route::get('experience', ...);
+});
+
+// Contact form — ketat: 3 req/10 menit + honeypot
+Route::post('contact', ...)->middleware('throttle:3,10');
+
+// Endpoint yang sering dipoll frontend
+Route::get('now-playing', ...)->middleware('throttle:60,1');
+Route::get('github/contributions', ...)->middleware('throttle:30,1');
+
+// Login — brute force guard: 5 percobaan/menit
+Route::post('auth/login', ...)->middleware('throttle:5,1');
 ```
+
+**Kenapa Referer/User-Agent check tidak dipakai:** header ini trivially spoofable (`curl -H "Referer: ..."`) dan dapat menyebabkan false negative di browser dengan privacy settings ketat yang strip Referer. Throttle berbasis IP adalah satu-satunya rate control yang tidak bisa di-bypass tanpa cost nyata (butuh IP baru setiap N request).
 
 ### 6.3 Middleware Stack per Group
 ```php

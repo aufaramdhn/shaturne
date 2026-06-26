@@ -520,8 +520,18 @@ Karena dashboard akan menyimpan akses penuh ke konten, keamanan didesain *defens
 - API Resource (`ProjectResource`) membatasi field yang diekspos — model tidak pernah `toJson()` mentah.
 
 ### 10.5 Rate Limiting & Anti-abuse
-- Form kontak publik: throttle ketat (`throttle:3,10` — 3x/10 menit per IP) + honeypot field sederhana untuk anti-bot.
-- Endpoint login & semua endpoint dashboard: throttle standar.
+
+Semua route punya throttle — tidak ada endpoint tanpa limit:
+
+| Endpoint | Limit | Alasan |
+|---|---|---|
+| `GET /projects`, `/skills`, `/experience` | `120/min` | Public read, bisa dikonsumsi widget/feed |
+| `POST /contact` | `3/10min` | Anti-spam ketat + honeypot |
+| `GET /now-playing` | `60/min` | Dipoll tiap ~30s frontend |
+| `GET /github/contributions` | `30/min` | Cached 6h, ringan |
+| `POST /auth/login` | `5/min` | Brute force guard |
+
+**Kenapa Referer/User-Agent check tidak dipakai:** trivially spoofable, menyebabkan false negative di browser dengan privacy settings (Referer di-strip), dan tidak melindungi dari spam jika header ditambahkan manual. Throttle IP adalah satu-satunya control yang tidak bisa di-bypass tanpa cost nyata.
 
 ### 10.6 Header & Transport Security
 - Middleware `SecurityHeaders`: `Content-Security-Policy`, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`.
