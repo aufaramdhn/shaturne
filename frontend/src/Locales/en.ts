@@ -188,6 +188,9 @@ export const en: typeof id = {
       'Get in touch with Aufa Ramadhan for collaboration, questions, or technical discussion on web development.',
     notFoundTitle: '404 | Page not found | Shaturne',
     projectTitleTpl: '{title} | Projects | Shaturne',
+    playgroundTitle: 'Playground | Shaturne',
+    playgroundDesc:
+      "Interactive exploration: AI chat, API Explorer, Tech Stack, GitHub stats, and Dev Tools from Aufa Ramadhan's portfolio.",
     jobTitle: 'Fullstack Developer',
   },
 }

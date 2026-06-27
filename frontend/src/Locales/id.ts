@@ -186,6 +186,9 @@ export const id = {
       'Hubungi Aufa Ramadhan untuk kolaborasi, pertanyaan, atau diskusi teknis seputar pengembangan web.',
     notFoundTitle: '404 | Halaman tidak ditemukan | Shaturne',
     projectTitleTpl: '{title} | Proyek | Shaturne',
+    playgroundTitle: 'Playground | Shaturne',
+    playgroundDesc:
+      'Eksplorasi interaktif: chat AI, API Explorer, Tech Stack, GitHub, dan Dev Tools dari portfolio Aufa Ramadhan.',
     jobTitle: 'Fullstack Developer',
   },
 }

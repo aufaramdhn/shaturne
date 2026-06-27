@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { fadeUp } from '@/Animations/variants'
 import { useLanguage } from '@/Context/LanguageContext'
+import { useSeo, buildAlternates } from '@/Hooks/Common/useSeo'
 import ChatWindow from '@/Components/Fragments/Chat/ChatWindow'
 import SandboxWindow from '@/Components/Fragments/Sandbox/SandboxWindow'
 import TechStackWindow from '@/Components/Fragments/TechStack/TechStackWindow'
@@ -74,7 +76,14 @@ function IconWrench() {
 
 export default function Playground() {
   const { t } = useLanguage()
+  const { pathname } = useLocation()
   const [tab, setTab] = useState<Tab>('chat')
+
+  useSeo({
+    title: t('seo.playgroundTitle'),
+    description: t('seo.playgroundDesc'),
+    alternates: buildAlternates(pathname),
+  })
 
   const navItems: { id: Tab; label: string; icon: React.ReactNode }[] = [
     { id: 'chat', label: t('playground.chatTitle'), icon: <IconChat /> },
