@@ -1,4 +1,4 @@
-import Section from '@/Components/Fragments/Section'
+import Section from '@/Components/Fragments/UI/Section'
 import { useLanguage } from '@/Context/LanguageContext'
 import { periodLabel } from '@/Utils/formatters'
 import type { ApiExperience } from '@/Services/Public/experienceService'

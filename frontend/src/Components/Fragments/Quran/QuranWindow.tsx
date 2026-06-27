@@ -5,7 +5,7 @@ import {
   getQuranGuidance,
   type QuranGuidanceResult,
   type QuranVerse,
-} from '@/Services/quranService'
+} from '@/Services/Public/quranService'
 
 const MAX = 500
 

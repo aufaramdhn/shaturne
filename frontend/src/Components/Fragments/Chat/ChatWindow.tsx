@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { useLanguage } from '@/Context/LanguageContext'
-import { useChat } from '@/Hooks/useChat'
+import { useChat } from '@/Hooks/Public/useChat'
 import ChatMessage from './ChatMessage'
 import ChatShortcuts from './ChatShortcuts'
 import ChatInput from '@/Components/Elements/ChatInput'

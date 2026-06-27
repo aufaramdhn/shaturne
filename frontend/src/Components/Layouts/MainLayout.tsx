@@ -5,7 +5,7 @@ import { isLang, DEFAULT_LANG } from '@/Locales'
 import { LanguageProvider } from '@/Context/LanguageContext'
 import Navbar from '@/Components/Fragments/Navigation/Navbar'
 import Footer from '@/Components/Fragments/Navigation/Footer'
-import AuroraBackground from '@/Components/Fragments/AuroraBackground'
+import AuroraBackground from '@/Components/Fragments/Backgrounds/AuroraBackground'
 
 // Public template (§3). Reads the :lang route param, validates it, and provides
 // the language context. Navbar + Footer persist; only page content transitions.

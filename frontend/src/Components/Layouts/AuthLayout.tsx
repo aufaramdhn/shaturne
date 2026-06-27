@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import { LanguageProvider } from '@/Context/LanguageContext'
 import { detectLang } from '@/Locales'
-import AuroraBackground from '@/Components/Fragments/AuroraBackground'
+import AuroraBackground from '@/Components/Fragments/Backgrounds/AuroraBackground'
 
 // Minimal centered shell for auth pages (no navbar/footer).
 // /login has no :lang prefix, so we detect lang from localStorage/browser.

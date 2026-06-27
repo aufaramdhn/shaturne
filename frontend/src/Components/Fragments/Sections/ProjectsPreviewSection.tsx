@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import Section from '@/Components/Fragments/Section'
+import Section from '@/Components/Fragments/UI/Section'
 import ProjectCard from '@/Components/Fragments/Cards/ProjectCard'
 import ProjectCardSkeleton from '@/Components/Fragments/Cards/ProjectCardSkeleton'
 import { ROUTES, localePath } from '@/Constants/routes'

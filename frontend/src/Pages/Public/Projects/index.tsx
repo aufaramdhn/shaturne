@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom'
 import { ErrorBoundary } from '@/Components/Elements/ErrorBoundary'
-import ProjectsGrid from '@/Components/Fragments/ProjectsGrid'
+import ProjectsGrid from '@/Components/Fragments/Sections/ProjectsGrid'
 import { useLanguage } from '@/Context/LanguageContext'
 import { useProjects } from '@/Hooks/Public/useProjects'
 import { useSeo, buildAlternates } from '@/Hooks/Common/useSeo'

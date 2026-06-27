@@ -7,7 +7,7 @@ import { useLanguage } from '@/Context/LanguageContext'
 import { useProject } from '@/Hooks/Public/useProject'
 import { useSeo, buildAlternates } from '@/Hooks/Common/useSeo'
 import { projectAccent } from '@/Utils/formatters'
-import ScrollProgressBar from '@/Components/Fragments/ScrollProgressBar'
+import ScrollProgressBar from '@/Components/Fragments/UI/ScrollProgressBar'
 
 export default function ProjectDetail() {
   const { lang, t } = useLanguage()

@@ -1,6 +1,6 @@
 import { useLanguage } from '@/Context/LanguageContext'
 import { SANDBOX_ENDPOINTS } from '@/Constants/sandboxEndpoints'
-import { useSandbox } from '@/Hooks/useSandbox'
+import { useSandbox } from '@/Hooks/Public/useSandbox'
 import EndpointList from './EndpointList'
 import ParamForm from './ParamForm'
 import ResponseViewer from './ResponseViewer'

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import Section from '@/Components/Fragments/Section'
+import Section from '@/Components/Fragments/UI/Section'
 import NotesCard from '@/Components/Fragments/Cards/NotesCard'
 import ContributionHeatmap from '@/Components/Fragments/Cards/ContributionHeatmap'
 import { useLanguage } from '@/Context/LanguageContext'

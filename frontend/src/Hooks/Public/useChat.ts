@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { sendMessage } from '@/Services/chatService'
+import { sendMessage } from '@/Services/Public/chatService'
 
 export interface Message {
   id: string

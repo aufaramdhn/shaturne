@@ -4,8 +4,8 @@ import { MotionConfig } from 'framer-motion'
 import { store } from '@/Redux/Store'
 import { ThemeProvider } from '@/Context/ThemeContext'
 import { SidebarProvider } from '@/Context/SidebarContext'
-import Preloader from '@/Components/Fragments/Preloader'
-import AuthBootstrap from '@/Components/Fragments/AuthBootstrap'
+import Preloader from '@/Components/Fragments/UI/Preloader'
+import AuthBootstrap from '@/Components/Fragments/Auth/AuthBootstrap'
 import AppRoutes from '@/Routes/Index'
 
 export default function App() {

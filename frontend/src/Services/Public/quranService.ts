@@ -1,4 +1,4 @@
-import api from './Common/axiosInstance'
+import api from '@/Services/Common/axiosInstance'
 import { API } from '@/Constants/apiEndpoints'
 
 export interface QuranVerse {

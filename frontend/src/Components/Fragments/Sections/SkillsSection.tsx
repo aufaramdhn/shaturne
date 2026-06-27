@@ -1,5 +1,5 @@
-import Section from '@/Components/Fragments/Section'
-import SkillGroup from '@/Components/Fragments/SkillGroup'
+import Section from '@/Components/Fragments/UI/Section'
+import SkillGroup from '@/Components/Fragments/Sections/SkillGroup'
 import { useLanguage } from '@/Context/LanguageContext'
 import type { SkillGroupData } from '@/Hooks/Public/useSkills'
 

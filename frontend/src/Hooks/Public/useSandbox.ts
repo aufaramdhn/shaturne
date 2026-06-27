@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
 import { SANDBOX_ENDPOINTS } from '@/Constants/sandboxEndpoints'
 import type { SandboxEndpoint } from '@/Constants/sandboxEndpoints'
-import { executeEndpoint } from '@/Services/sandboxService'
+import { executeEndpoint } from '@/Services/Public/sandboxService'
 
 interface SandboxResult {
   selected: SandboxEndpoint

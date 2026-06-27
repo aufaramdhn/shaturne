@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { fadeUp } from '@/Animations/variants'
-import type { Message } from '@/Hooks/useChat'
+import type { Message } from '@/Hooks/Public/useChat'
 import { useLanguage } from '@/Context/LanguageContext'
 
 interface Props {
