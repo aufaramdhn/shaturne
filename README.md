@@ -24,7 +24,7 @@ Shaturne is a personal portfolio built as a production-grade monorepo. The publi
 ```
 frontend/   React SPA (Vite + TypeScript) — Vercel / Netlify
 backend/    Laravel 13 REST API           — VPS / Railway
-docs/       PRD.md · DESIGN.md · PROGRESS.md
+docs/       PRD.md · DESIGN.md
 ```
 
 ---
@@ -52,7 +52,7 @@ docs/       PRD.md · DESIGN.md · PROGRESS.md
 - spatie/laravel-permission
 - spatie/laravel-translatable (JSON `{id,en}` columns)
 - UUID primary keys · DB::transaction fail-closed
-- PHPStan level 5 · PHPUnit
+- PHPStan level 5 · PHPUnit / Pest
 
 </td>
 </tr>
@@ -81,7 +81,7 @@ npm run dev                   # http://localhost:5173
 
 ```bash
 cd backend
-cp .env.example .env          # fill DB_*, APP_KEY, SPOTIFY_*
+cp .env.example .env          # fill DB_*, APP_KEY, GROQ_API_KEY, SPOTIFY_*
 composer install
 php artisan key:generate
 php artisan migrate --seed    # seeds bilingual demo data
@@ -99,6 +99,8 @@ php artisan serve             # http://localhost:8000
 |---|---|
 | **Public site** | Home · Projects · Project detail · Contact |
 | **i18n** | ID + EN, `/:lang` prefix, custom `t()` / `tx()` helpers |
+| **Playground** | AI chat · API Explorer · Tech Stack viewer · GitHub stats · Dev Tools · Qur'an Guidance |
+| **Qur'an Guidance** | Write your feeling → AI finds relevant Quranic verses with Arabic, transliteration, and translation |
 | **Dashboard** | Projects (with image upload) · Skills · Experience · Inbox |
 | **Auth** | Sanctum SPA cookie, httpOnly, CSRF-refresh interceptor |
 | **Media** | MIME whitelist (jpg/png/webp), randomised filename, `storage/app/public` |
@@ -115,20 +117,46 @@ frontend/src/
 ├── Animations/          Framer Motion variants + transitions
 ├── Components/
 │   ├── Elements/        Atoms  — no Hooks / Services / Redux
-│   ├── Fragments/       Molecules/Organisms
-│   └── Layouts/         Templates
+│   ├── Fragments/
+│   │   ├── Auth/        AuthBootstrap
+│   │   ├── Backgrounds/ AuroraBackground
+│   │   ├── Cards/       ProjectCard · SpotifyCard · NotesCard · skeletons
+│   │   ├── Chat/        ChatWindow · ChatMessage · ChatShortcuts
+│   │   ├── DevTools/    DevToolsWindow
+│   │   ├── Forms/       ContactForm · LoginForm
+│   │   ├── GitHub/      GitHubWindow
+│   │   ├── Navigation/  Navbar · Footer · LanguageSwitcher · ThemeToggle
+│   │   ├── Quran/       QuranWindow
+│   │   ├── Sandbox/     SandboxWindow · EndpointList · ParamForm · ResponseViewer
+│   │   ├── Sections/    HeroSection · AboutSection · SkillsSection · …
+│   │   ├── TechStack/   TechStackWindow
+│   │   └── UI/          Section · Marquee · Preloader · ScrollProgressBar
+│   └── Layouts/         MainLayout · AuthLayout · DashboardLayout
 ├── Context/             Local UI state (theme, sidebar, language)
-├── Hooks/               Data-fetching + Redux bridge
-├── Pages/               Route entry points
+├── Hooks/
+│   ├── Auth/            useAuth · useLogin · useAuthCheck
+│   ├── Common/          useSeo
+│   ├── Dashboard/       useDashProjects · useDashSkills · …
+│   └── Public/          useProjects · useSkills · useChat · useSandbox · …
+├── Pages/
+│   ├── Auth/Login/
+│   ├── Common/NotFound/
+│   ├── Dashboard/       Overview · Projects · Skills · Experience · Inbox · Profile
+│   └── Public/          Home · Projects · ProjectDetail · Contact · Playground
 ├── Redux/               AuthSlice · UiSlice · ProjectSlice
-└── Services/            Axios wrappers (never imported by Components)
+├── Services/
+│   ├── Auth/            authService
+│   ├── Common/          axiosInstance · locale
+│   ├── Dashboard/       dashboardService
+│   └── Public/          projectService · skillService · chatService · quranService · …
+└── Types/               api.ts
 
 backend/app/
 ├── Http/Controllers/Api/V1/
 ├── Http/Requests/       Form Requests — one per write endpoint
-├── Http/Resources/      Public + Dashboard\* namespaces
+├── Http/Resources/      Public + Dashboard\ namespaces
 ├── Models/              HasUuids · HasTranslations · explicit $fillable
-└── Services/            Business logic — Controllers stay thin
+└── Services/            ChatService · QuranGuidanceService · PromptGuard · …
 ```
 
 ---
@@ -140,10 +168,15 @@ backend/app/
 | Token | Value | Role |
 |---|---|---|
 | `--color-bg` | `oklch(15% 0.024 265)` | Page background |
+| `--color-surface` | `oklch(19% 0.028 265)` | Card / section background |
 | `--color-accent` | `oklch(82% 0.135 195)` | Cyan — links, focus, glow |
-| `--color-accent-2` | `oklch(62% 0.19 285)` | Violet — gradient pair |
+| `--color-accent-2` | `oklch(70% 0.15 285)` | Violet — gradient pair |
+| `--color-text` | `oklch(97% 0.005 250)` | Primary text |
+| `--color-text-muted` | `oklch(71% 0.022 258)` | Caption, meta, placeholder |
 
 Typography: **Bricolage Grotesque** (display) · **Hanken Grotesk** (body) · **IBM Plex Mono** (mono/code).
+
+Animations run unconditionally (`MotionConfig reducedMotion="never"` — intentional design decision).
 
 ---
 
@@ -157,6 +190,29 @@ All endpoints prefixed `/api/v1/`. Standard response envelope:
 ```
 
 Public endpoints are language-aware via `?lang=id|en`.
+
+### Rate limits (per IP)
+
+| Endpoint | Limit |
+|---|---|
+| `POST /auth/login` | 5 / min |
+| `GET /projects`, `/skills`, `/experience` | 120 / min |
+| `POST /contact` | 3 / 10 min |
+| `GET /now-playing` | 60 / min |
+| `POST /chat` | 10 / min · 50 / day |
+| `POST /quran` | 10 / min · 30 / day |
+
+---
+
+## Security
+
+- Sanctum SPA cookie auth — `httpOnly`, no token in `localStorage`
+- All write endpoints use dedicated Form Request classes
+- Dashboard routes double-gated: `auth:sanctum` + `role:admin` Policy
+- File uploads: MIME whitelist, randomised filename, not served from `public/`
+- AI endpoints: `PromptGuard` injection detection + output sanitization
+- Exception handler: stack traces logged server-side only, never in API response
+- `APP_DEBUG=false` required in staging / production
 
 ---
 
