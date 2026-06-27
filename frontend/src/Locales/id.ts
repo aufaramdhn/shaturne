@@ -104,6 +104,18 @@ export const id = {
   preloader: {
     tagline: 'portfolio kerja',
   },
+  sandbox: {
+    title: 'API Explorer',
+    subtitle: 'Coba endpoint publik portfolio langsung dari browser.',
+    endpointsLabel: 'Endpoint',
+    paramsLabel: 'Parameter',
+    runButton: 'Jalankan',
+    resetButton: 'Reset',
+    responseLabel: 'Response',
+    statusLabel: 'Status',
+    durationLabel: 'Durasi',
+    emptyState: 'Pilih endpoint dan klik Jalankan untuk melihat response.',
+  },
   playground: {
     title: 'Playground',
     chatTitle: 'Tanya Aufa AI',

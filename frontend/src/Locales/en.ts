@@ -106,6 +106,18 @@ export const en: typeof id = {
   preloader: {
     tagline: 'work portfolio',
   },
+  sandbox: {
+    title: 'API Explorer',
+    subtitle: 'Try the portfolio public endpoints directly from your browser.',
+    endpointsLabel: 'Endpoints',
+    paramsLabel: 'Parameters',
+    runButton: 'Run',
+    resetButton: 'Reset',
+    responseLabel: 'Response',
+    statusLabel: 'Status',
+    durationLabel: 'Duration',
+    emptyState: 'Select an endpoint and click Run to see the response.',
+  },
   playground: {
     title: 'Playground',
     chatTitle: 'Ask Aufa AI',
