@@ -16,6 +16,8 @@ class ChatService
             return 'Maaf, saya hanya bisa menjawab pertanyaan seputar portfolio Aufa.';
         }
 
+        $lang = $this->detectLang($clean);
+
         try {
             $res = Http::withToken((string) config('services.groq.key'))
                 ->timeout(15)
@@ -25,7 +27,7 @@ class ChatService
                     'temperature' => 0.7,
                     'messages' => [
                         ['role' => 'system', 'content' => $this->systemPrompt()],
-                        ['role' => 'user', 'content' => '[USER]: '.$clean.' [/USER]'],
+                        ['role' => 'user', 'content' => "[USER]: {$clean} [/USER]\n\nIMPORTANT: Reply in {$lang} only."],
                     ],
                 ]);
 
@@ -41,6 +43,28 @@ class ChatService
 
             return 'Maaf, sedang ada gangguan. Coba lagi nanti.';
         }
+    }
+
+    private function detectLang(string $text): string
+    {
+        $idWords = [
+            'apa', 'saya', 'kamu', 'adalah', 'yang', 'dan', 'di', 'ini', 'itu',
+            'dengan', 'untuk', 'tidak', 'bisa', 'bagaimana', 'siapa', 'kenapa',
+            'gimana', 'dong', 'ya', 'nya', 'mau', 'dari', 'ke', 'ada', 'juga',
+            'sudah', 'belum', 'lagi', 'kan', 'banget', 'sih', 'tolong', 'ceritakan',
+            'jelaskan', 'beritahu', 'boleh', 'kapan', 'dimana', 'apakah', 'mengapa',
+            'seberapa', 'skill', 'proyek', 'kerja', 'pengalaman', 'kontak',
+        ];
+
+        $words = (array) preg_split('/\W+/u', mb_strtolower($text), -1, PREG_SPLIT_NO_EMPTY);
+
+        foreach ($words as $word) {
+            if (in_array($word, $idWords, true)) {
+                return 'Indonesian';
+            }
+        }
+
+        return 'English';
     }
 
     private function systemPrompt(): string

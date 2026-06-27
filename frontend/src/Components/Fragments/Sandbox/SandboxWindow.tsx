@@ -33,7 +33,7 @@ export default function SandboxWindow() {
       </div>
 
       {/* Body */}
-      <div className="grid grid-cols-[200px_1fr] divide-x divide-[var(--color-border)]">
+      <div className="flex flex-col divide-y divide-[var(--color-border)] sm:grid sm:grid-cols-[200px_1fr] sm:divide-x sm:divide-y-0">
         {/* Sidebar — endpoint list */}
         <div className="p-4">
           <p className="mb-2 text-[0.75rem] font-medium uppercase tracking-wider text-[var(--color-text-muted)]">

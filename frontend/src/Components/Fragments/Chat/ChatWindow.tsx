@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useLanguage } from '@/Context/LanguageContext'
 import { useChat } from '@/Hooks/useChat'
 import ChatMessage from './ChatMessage'
+import ChatShortcuts from './ChatShortcuts'
 import ChatInput from '@/Components/Elements/ChatInput'
 
 export default function ChatWindow() {
@@ -43,6 +44,7 @@ export default function ChatWindow() {
             {t('playground.welcomeMessage')}
           </p>
         )}
+        {messages.length === 0 && <ChatShortcuts onSelect={send} />}
         <div className="flex flex-col gap-4">
           {messages.map(msg => (
             <ChatMessage key={msg.id} message={msg} />

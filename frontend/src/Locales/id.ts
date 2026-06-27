@@ -127,6 +127,12 @@ export const id = {
     youLabel: 'Kamu',
     errorRetry: 'Gagal mengirim. Coba lagi.',
     welcomeMessage: 'Halo! Tanya apa saja soal portfolio, skill, atau project saya.',
+    shortcuts: [
+      'Skill apa yang kamu kuasai?',
+      'Ceritakan project terbaru kamu',
+      'Apa pengalaman kerja kamu?',
+      'Bagaimana cara menghubungi Aufa?',
+    ],
   },
   seo: {
     homeTitle: 'Shaturne | Aufa Ramadhan, Fullstack Developer',

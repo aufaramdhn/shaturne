@@ -129,6 +129,12 @@ export const en: typeof id = {
     youLabel: 'You',
     errorRetry: 'Failed to send. Try again.',
     welcomeMessage: 'Hi! Ask me anything about my portfolio, skills, or projects.',
+    shortcuts: [
+      'What are your main skills?',
+      'Tell me about your latest project',
+      'What is your work experience?',
+      'How can I contact Aufa?',
+    ],
   },
   seo: {
     homeTitle: 'Shaturne | Aufa Ramadhan, Fullstack Developer',
