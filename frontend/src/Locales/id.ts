@@ -175,6 +175,20 @@ export const id = {
     oklchLabel: 'OKLCH',
     invalidColor: 'Warna tidak valid',
   },
+  quran: {
+    title: "Panduan Qur'an",
+    subtitle: "Tulis perasaanmu, dan temukan ayat Al-Qur'an yang relevan.",
+    inputPlaceholder: 'Ceritakan bagaimana perasaanmu saat ini...',
+    findButton: 'Temukan Ayat',
+    finding: 'Mencari...',
+    reflectionLabel: 'Renungan',
+    transliterationLabel: 'Latinisasi',
+    translationLabel: 'Terjemahan',
+    ayah: 'Ayat',
+    error: 'Gagal menemukan ayat. Coba lagi.',
+    emptyState: 'Tulis perasaanmu di atas dan klik Temukan Ayat.',
+    charCount: '{n}/500',
+  },
   seo: {
     homeTitle: 'Shaturne | Aufa Ramadhan, Fullstack Developer',
     homeDesc:

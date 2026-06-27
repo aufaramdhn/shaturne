@@ -177,6 +177,20 @@ export const en: typeof id = {
     oklchLabel: 'OKLCH',
     invalidColor: 'Invalid color',
   },
+  quran: {
+    title: "Qur'an Guide",
+    subtitle: 'Share how you feel, and find relevant Quranic verses.',
+    inputPlaceholder: 'Describe how you are feeling right now...',
+    findButton: 'Find Verses',
+    finding: 'Searching...',
+    reflectionLabel: 'Reflection',
+    transliterationLabel: 'Transliteration',
+    translationLabel: 'Translation',
+    ayah: 'Verse',
+    error: 'Could not find verses. Please try again.',
+    emptyState: 'Share how you feel above and click Find Verses.',
+    charCount: '{n}/500',
+  },
   seo: {
     homeTitle: 'Shaturne | Aufa Ramadhan, Fullstack Developer',
     homeDesc:

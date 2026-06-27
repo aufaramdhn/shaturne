@@ -9,8 +9,9 @@ import SandboxWindow from '@/Components/Fragments/Sandbox/SandboxWindow'
 import TechStackWindow from '@/Components/Fragments/TechStack/TechStackWindow'
 import GitHubWindow from '@/Components/Fragments/GitHub/GitHubWindow'
 import DevToolsWindow from '@/Components/Fragments/DevTools/DevToolsWindow'
+import QuranWindow from '@/Components/Fragments/Quran/QuranWindow'
 
-type Tab = 'chat' | 'sandbox' | 'techstack' | 'github' | 'devtools'
+type Tab = 'chat' | 'sandbox' | 'techstack' | 'github' | 'devtools' | 'quran'
 
 function IconChat() {
   return (
@@ -74,6 +75,19 @@ function IconWrench() {
   )
 }
 
+function IconCrescent() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+      <path
+        d="M13.5 9A5.5 5.5 0 017 2.5a5.5 5.5 0 100 11A5.5 5.5 0 0113.5 9z"
+        stroke="currentColor"
+        strokeWidth="1.25"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 export default function Playground() {
   const { t } = useLanguage()
   const { pathname } = useLocation()
@@ -91,6 +105,7 @@ export default function Playground() {
     { id: 'techstack', label: t('techstack.title'), icon: <IconLayers /> },
     { id: 'github', label: t('github.title'), icon: <IconGitHub /> },
     { id: 'devtools', label: t('devtools.title'), icon: <IconWrench /> },
+    { id: 'quran', label: t('quran.title'), icon: <IconCrescent /> },
   ]
 
   return (
@@ -141,6 +156,7 @@ export default function Playground() {
           {tab === 'techstack' && <TechStackWindow />}
           {tab === 'github' && <GitHubWindow />}
           {tab === 'devtools' && <DevToolsWindow />}
+          {tab === 'quran' && <QuranWindow />}
         </div>
       </motion.div>
     </div>

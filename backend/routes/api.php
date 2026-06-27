@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\ChatController;
+use App\Http\Controllers\Api\V1\QuranController;
 use App\Http\Controllers\Api\V1\DashboardController;
 use App\Http\Controllers\Api\V1\DashboardExperienceController;
 use App\Http\Controllers\Api\V1\DashboardMessageController;
@@ -48,6 +49,8 @@ Route::prefix('api/v1')->group(function () {
         ->middleware('throttle:30,1'); // cached 6h, light rate limit
     Route::post('chat', [ChatController::class, 'store'])
         ->middleware(['throttle:10,1', 'throttle:50,1440']); // 10/min, 50/day per IP
+    Route::post('quran', [QuranController::class, 'store'])
+        ->middleware(['throttle:10,1', 'throttle:30,1440']); // 10/min, 30/day per IP
 
     // ── Dashboard (auth required) — uses UUID, not integer ID ───────────
     Route::prefix('dashboard')->middleware(['auth:sanctum', 'role:admin'])->group(function () {
