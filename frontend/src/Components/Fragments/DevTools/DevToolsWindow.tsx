@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useMemo } from 'react'
 import { useLanguage } from '@/Context/LanguageContext'
 
 // ─── Color conversion ────────────────────────────────────────────────────────
@@ -122,17 +122,15 @@ function RegexTool() {
   const [pattern, setPattern] = useState('')
   const [flags, setFlags] = useState('g')
   const [testStr, setTestStr] = useState('')
-  const [regexError, setRegexError] = useState(false)
 
-  const { highlighted, matchCount } = useCallback(() => {
-    if (!pattern || !testStr) return { highlighted: null, matchCount: 0 }
+  const { highlighted, matchCount, regexError } = useMemo(() => {
+    if (!pattern || !testStr) return { highlighted: null, matchCount: 0, regexError: false }
+
     let regex: RegExp
     try {
       regex = new RegExp(pattern, flags.includes('g') ? flags : flags + 'g')
-      setRegexError(false)
     } catch {
-      setRegexError(true)
-      return { highlighted: null, matchCount: 0 }
+      return { highlighted: null, matchCount: 0, regexError: true }
     }
 
     const parts: React.ReactNode[] = []
@@ -145,7 +143,7 @@ function RegexTool() {
       if (match.index > last) parts.push(testStr.slice(last, match.index))
       parts.push(
         <mark
-          key={match.index}
+          key={`${match.index}-${count}`}
           className="rounded bg-[var(--color-accent)]/30 text-[var(--color-accent)]"
         >
           {match[0]}
@@ -159,8 +157,8 @@ function RegexTool() {
       }
     }
     if (last < testStr.length) parts.push(testStr.slice(last))
-    return { highlighted: parts, matchCount: count }
-  }, [pattern, flags, testStr])()
+    return { highlighted: parts, matchCount: count, regexError: false }
+  }, [pattern, flags, testStr])
 
   return (
     <div className="flex flex-col gap-4">
