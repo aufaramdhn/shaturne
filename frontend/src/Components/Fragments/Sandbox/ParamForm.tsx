@@ -53,7 +53,7 @@ export default function ParamForm({ endpoint, values, onChange, onSubmit, isLoad
       <button
         onClick={onSubmit}
         disabled={isLoading}
-        className="rounded-lg bg-[var(--color-accent)] px-4 py-2.5 font-medium text-[oklch(15%_0.024_265)] transition-opacity hover:opacity-90 disabled:opacity-40"
+        className="w-fit rounded-lg bg-[var(--color-accent)] px-5 py-2.5 font-medium text-[oklch(15%_0.024_265)] transition-opacity hover:opacity-90 disabled:opacity-40"
       >
         {isLoading ? '...' : t('sandbox.runButton')}
       </button>
