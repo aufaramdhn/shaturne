@@ -118,7 +118,7 @@ export const id = {
   },
   playground: {
     title: 'Playground',
-    chatTitle: 'Tanya Aufa AI',
+    chatTitle: 'Shaturne AI',
     chatSubtitle: 'Tanya soal skill, project, atau pengalaman saya.',
     inputPlaceholder: 'Tulis pertanyaan...',
     sendButton: 'Kirim',

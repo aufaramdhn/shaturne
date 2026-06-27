@@ -120,7 +120,7 @@ export const en: typeof id = {
   },
   playground: {
     title: 'Playground',
-    chatTitle: 'Ask Aufa AI',
+    chatTitle: 'Shaturne AI',
     chatSubtitle: 'Ask about my skills, projects, or experience.',
     inputPlaceholder: 'Type your question...',
     sendButton: 'Send',
