@@ -39,6 +39,7 @@ export default function ParamForm({ endpoint, values, onChange, onSubmit, isLoad
               </label>
               <input
                 type={param.type === 'number' ? 'number' : 'text'}
+                min={param.type === 'number' ? 0 : undefined}
                 value={values[param.key] ?? ''}
                 onChange={e => onChange(param.key, e.target.value)}
                 placeholder={param.example}
