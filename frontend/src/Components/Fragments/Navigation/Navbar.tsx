@@ -39,7 +39,7 @@ export default function Navbar() {
         'sticky top-0 z-[var(--z-sticky)] transition-colors duration-300',
         scrolled || menuOpen
           ? 'border-b border-[var(--color-border)] bg-[var(--color-bg)]/95'
-          : 'border-b border-transparent bg-transparent',
+          : 'border-b border-transparent bg-[var(--color-bg)]/50',
       ].join(' ')}
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">

@@ -16,7 +16,7 @@ export default function ExperienceSection({ experiences, isLoading }: Props) {
       {isLoading ? (
         <div className="flex max-w-3xl flex-col gap-3">
           {Array.from({ length: 3 }).map((_, i) => (
-            <div key={i} className="skeleton-shimmer h-24 rounded-xl" aria-hidden="true" />
+            <div key={i} className="skeleton-shimmer h-36 rounded-xl" aria-hidden="true" />
           ))}
         </div>
       ) : (
