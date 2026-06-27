@@ -2,14 +2,23 @@
 
 namespace App\Services;
 
+use App\Services\PromptGuard;
 use Illuminate\Support\Facades\Http;
 
 class QuranGuidanceService
 {
+    public function __construct(private readonly PromptGuard $guard) {}
+
     public function guide(string $feeling): array
     {
-        $lang = $this->detectLang($feeling);
-        $data = $this->askGroq($feeling, $lang);
+        $clean = $this->guard->sanitizeInput($feeling);
+
+        if ($this->guard->isInjection($clean)) {
+            throw new \RuntimeException('Input tidak valid.');
+        }
+
+        $lang = $this->detectLang($clean);
+        $data = $this->askGroq($clean, $lang);
 
         if ($data === null) {
             throw new \RuntimeException('AI service unavailable.');
