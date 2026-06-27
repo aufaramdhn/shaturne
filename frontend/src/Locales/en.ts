@@ -7,6 +7,7 @@ export const en: typeof id = {
     home: 'Home',
     projects: 'Projects',
     contact: 'Contact',
+    playground: 'Playground',
   },
   hero: {
     headlineA: "I'm",
@@ -104,6 +105,18 @@ export const en: typeof id = {
   },
   preloader: {
     tagline: 'work portfolio',
+  },
+  playground: {
+    title: 'Playground',
+    chatTitle: 'Ask Aufa AI',
+    chatSubtitle: 'Ask about my skills, projects, or experience.',
+    inputPlaceholder: 'Type your question...',
+    sendButton: 'Send',
+    clearButton: 'Clear',
+    aiLabel: 'AI',
+    youLabel: 'You',
+    errorRetry: 'Failed to send. Try again.',
+    welcomeMessage: 'Hi! Ask me anything about my portfolio, skills, or projects.',
   },
   seo: {
     homeTitle: 'Shaturne | Aufa Ramadhan, Fullstack Developer',

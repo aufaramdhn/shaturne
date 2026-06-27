@@ -5,6 +5,7 @@ export const id = {
     home: 'Beranda',
     projects: 'Proyek',
     contact: 'Kontak',
+    playground: 'Playground',
   },
   hero: {
     headlineA: 'Saya',
@@ -102,6 +103,18 @@ export const id = {
   },
   preloader: {
     tagline: 'portfolio kerja',
+  },
+  playground: {
+    title: 'Playground',
+    chatTitle: 'Tanya Aufa AI',
+    chatSubtitle: 'Tanya soal skill, project, atau pengalaman saya.',
+    inputPlaceholder: 'Tulis pertanyaan...',
+    sendButton: 'Kirim',
+    clearButton: 'Bersihkan',
+    aiLabel: 'AI',
+    youLabel: 'Kamu',
+    errorRetry: 'Gagal mengirim. Coba lagi.',
+    welcomeMessage: 'Halo! Tanya apa saja soal portfolio, skill, atau project saya.',
   },
   seo: {
     homeTitle: 'Shaturne | Aufa Ramadhan, Fullstack Developer',

@@ -22,6 +22,7 @@ export default function Navbar() {
     { to: localePath(lang, ROUTES.HOME), label: t('nav.home'), end: true },
     { to: localePath(lang, ROUTES.PROJECTS), label: t('nav.projects'), end: false },
     { to: localePath(lang, ROUTES.CONTACT), label: t('nav.contact'), end: false },
+    { to: localePath(lang, ROUTES.PLAYGROUND), label: t('nav.playground'), end: false },
   ]
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
