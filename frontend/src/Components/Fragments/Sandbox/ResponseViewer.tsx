@@ -46,7 +46,7 @@ export default function ResponseViewer({ response, status, duration, error }: Pr
           </span>
         )}
       </div>
-      <pre className="max-h-[400px] overflow-auto rounded-lg bg-[var(--color-surface-raised)] p-4 font-[var(--font-mono)] text-[0.8125rem] leading-relaxed text-[var(--color-text)]">
+      <pre className="max-h-[400px] w-full overflow-auto whitespace-pre-wrap break-all rounded-lg bg-[var(--color-surface-raised)] p-4 font-[var(--font-mono)] text-[0.8125rem] leading-relaxed text-[var(--color-text)]">
         {JSON.stringify(response, null, 2)}
       </pre>
     </div>

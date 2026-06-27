@@ -43,7 +43,7 @@ export default function SandboxWindow() {
         </div>
 
         {/* Main — params + response */}
-        <div className="flex flex-col gap-6 p-5">
+        <div className="flex min-w-0 flex-col gap-6 overflow-hidden p-5">
           <ParamForm
             endpoint={selected}
             values={paramValues}
