@@ -13,7 +13,7 @@ class PromptGuardTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->guard = new PromptGuard();
+        $this->guard = new PromptGuard;
     }
 
     #[DataProvider('injectionProvider')]

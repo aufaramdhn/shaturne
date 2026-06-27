@@ -102,7 +102,8 @@ class PublicApiTest extends TestCase
 
     public function test_now_playing_reports_offline_without_credentials(): void
     {
-        // No Spotify config in the test env → fail-soft offline, never an error.
+        config(['services.spotify.client_id' => '', 'services.spotify.client_secret' => '', 'services.spotify.refresh_token' => '']);
+
         $this->getJson('/api/v1/now-playing')
             ->assertOk()
             ->assertJsonPath('success', true)

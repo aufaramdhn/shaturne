@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\ChatController;
-use App\Http\Controllers\Api\V1\QuranController;
 use App\Http\Controllers\Api\V1\DashboardController;
 use App\Http\Controllers\Api\V1\DashboardExperienceController;
 use App\Http\Controllers\Api\V1\DashboardMessageController;
@@ -13,6 +12,7 @@ use App\Http\Controllers\Api\V1\GithubContributionsController;
 use App\Http\Controllers\Api\V1\MessageController;
 use App\Http\Controllers\Api\V1\NowPlayingController;
 use App\Http\Controllers\Api\V1\ProjectController;
+use App\Http\Controllers\Api\V1\QuranController;
 use App\Http\Controllers\Api\V1\SkillController;
 use Illuminate\Support\Facades\Route;
 

@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Services\PromptGuard;
 use Illuminate\Support\Facades\Http;
 
 class QuranGuidanceService
@@ -38,11 +37,11 @@ class QuranGuidanceService
             $res = Http::withToken($key)
                 ->timeout(30)
                 ->post('https://api.groq.com/openai/v1/chat/completions', [
-                    'model'           => 'llama-3.3-70b-versatile',
-                    'max_tokens'      => 900,
-                    'temperature'     => 0.2,
+                    'model' => 'llama-3.3-70b-versatile',
+                    'max_tokens' => 900,
+                    'temperature' => 0.2,
                     'response_format' => ['type' => 'json_object'],
-                    'messages'        => [
+                    'messages' => [
                         ['role' => 'system', 'content' => $this->systemPrompt($lang)],
                         ['role' => 'user', 'content' => $feeling],
                     ],
@@ -73,8 +72,7 @@ class QuranGuidanceService
             return null;
         }
 
-        $verses = array_values(array_filter($data['verses'], fn ($v) =>
-            isset($v['surah'], $v['ayah'], $v['arabic'], $v['translation'])
+        $verses = array_values(array_filter($data['verses'], fn ($v) => isset($v['surah'], $v['ayah'], $v['arabic'], $v['translation'])
             && is_numeric($v['surah']) && (int) $v['surah'] >= 1 && (int) $v['surah'] <= 114
             && is_numeric($v['ayah']) && (int) $v['ayah'] >= 1
         ));
@@ -85,14 +83,14 @@ class QuranGuidanceService
 
         return [
             'reflection' => $data['reflection'] ?? '',
-            'verses'     => array_map(fn ($v) => [
-                'surah_number'      => (int) $v['surah'],
-                'ayah_number'       => (int) $v['ayah'],
+            'verses' => array_map(fn ($v) => [
+                'surah_number' => (int) $v['surah'],
+                'ayah_number' => (int) $v['ayah'],
                 'surah_name_arabic' => $v['surah_name_arabic'] ?? '',
-                'surah_name_latin'  => $v['surah_name_latin'] ?? '',
-                'arabic'            => $v['arabic'],
-                'transliteration'   => $v['transliteration'] ?? '',
-                'translation'       => $v['translation'],
+                'surah_name_latin' => $v['surah_name_latin'] ?? '',
+                'arabic' => $v['arabic'],
+                'transliteration' => $v['transliteration'] ?? '',
+                'translation' => $v['translation'],
             ], $verses),
         ];
     }
@@ -121,8 +119,8 @@ class QuranGuidanceService
 
     private function systemPrompt(string $lang): string
     {
-        $reflLang    = $lang === 'Indonesian' ? 'Indonesian (Bahasa Indonesia)' : 'English';
-        $transLang   = $lang === 'Indonesian' ? 'Indonesian' : 'English';
+        $reflLang = $lang === 'Indonesian' ? 'Indonesian (Bahasa Indonesia)' : 'English';
+        $transLang = $lang === 'Indonesian' ? 'Indonesian' : 'English';
 
         return <<<PROMPT
 You are a compassionate Islamic scholar. Given the user's emotional state, identify 1-3 Quran verses that are most relevant, comforting, or guiding.
