@@ -3,6 +3,7 @@ export const ROUTES = {
   PROJECTS: '/projects',
   PROJECT_DETAIL: '/projects/:slug',
   CONTACT: '/contact',
+  PLAYGROUND: '/playground',
 
   LOGIN: '/login',
 

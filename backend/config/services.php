@@ -50,4 +50,12 @@ return [
         'username' => env('GITHUB_USERNAME'),
     ],
 
+    // Groq AI chat — free tier (console.groq.com). Key required; if missing
+    // ChatService returns the fallback string instead of calling the API.
+    'groq' => [
+        'key' => env('GROQ_API_KEY'),
+        'model' => 'llama-3.1-8b-instant',
+        'max_tokens' => 400,
+    ],
+
 ];

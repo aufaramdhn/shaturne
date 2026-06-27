@@ -10,7 +10,7 @@
   --color-border: oklch(30% 0.028 265);
   --color-accent: oklch(82% 0.135 195); /* bright cyan */
   --color-accent-strong: oklch(74% 0.15 198);
-  --color-accent-2: oklch(62% 0.19 285); /* violet — gradient pair */
+  --color-accent-2: oklch(70% 0.15 285); /* violet — gradient pair */
   --color-error: oklch(68% 0.19 25);
 
   /* glow */

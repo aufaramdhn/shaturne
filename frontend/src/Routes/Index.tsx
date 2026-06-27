@@ -14,6 +14,7 @@ const Projects = lazy(() => import('@/Pages/Public/Projects'))
 const ProjectDetail = lazy(() => import('@/Pages/Public/ProjectDetail'))
 const Contact = lazy(() => import('@/Pages/Public/Contact'))
 const NotFound = lazy(() => import('@/Pages/Common/NotFound'))
+const Playground = lazy(() => import('@/Pages/Public/Playground'))
 
 // Auth
 const Login = lazy(() => import('@/Pages/Auth/Login'))
@@ -63,6 +64,14 @@ export default function AppRoutes() {
           element={
             <Suspense>
               <Contact />
+            </Suspense>
+          }
+        />
+        <Route
+          path="playground"
+          element={
+            <Suspense>
+              <Playground />
             </Suspense>
           }
         />
