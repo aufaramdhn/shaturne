@@ -2,31 +2,20 @@
 
 namespace App\Services;
 
-use Illuminate\Http\Client\Pool;
 use Illuminate\Support\Facades\Http;
 
 class QuranGuidanceService
 {
-    private const QURAN_API = 'https://api.alquran.cloud/v1/ayah';
-    // Arabic (Uthmani) + Latin transliteration + Indonesian translation
-    private const EDITIONS = 'quran-uthmani,en.transliteration,id.indonesian';
-
     public function guide(string $feeling): array
     {
         $lang = $this->detectLang($feeling);
-        $groqData = $this->askGroq($feeling, $lang);
+        $data = $this->askGroq($feeling, $lang);
 
-        if ($groqData === null) {
+        if ($data === null) {
             throw new \RuntimeException('AI service unavailable.');
         }
 
-        $refs = array_slice($groqData['verses'], 0, 3);
-        $verses = $this->fetchVerses($refs);
-
-        return [
-            'reflection' => $groqData['reflection'] ?? '',
-            'verses' => array_values(array_filter($verses)),
-        ];
+        return $data;
     }
 
     private function askGroq(string $feeling, string $lang): ?array
@@ -38,11 +27,11 @@ class QuranGuidanceService
 
         try {
             $res = Http::withToken($key)
-                ->timeout(20)
+                ->timeout(30)
                 ->post('https://api.groq.com/openai/v1/chat/completions', [
-                    'model'           => config('services.groq.model', 'llama-3.1-8b-instant'),
-                    'max_tokens'      => 300,
-                    'temperature'     => 0.3,
+                    'model'           => 'llama-3.3-70b-versatile',
+                    'max_tokens'      => 900,
+                    'temperature'     => 0.2,
                     'response_format' => ['type' => 'json_object'],
                     'messages'        => [
                         ['role' => 'system', 'content' => $this->systemPrompt($lang)],
@@ -64,53 +53,8 @@ class QuranGuidanceService
         }
     }
 
-    /** Fetch 1-3 verses in parallel. */
-    private function fetchVerses(array $refs): array
-    {
-        if (empty($refs)) {
-            return [];
-        }
-
-        try {
-            $responses = Http::pool(function (Pool $pool) use ($refs) {
-                return array_map(
-                    fn ($ref) => $pool->timeout(10)->get(
-                        self::QURAN_API . "/{$ref['surah']}:{$ref['ayah']}/editions/" . self::EDITIONS
-                    ),
-                    $refs
-                );
-            });
-
-            return array_map(function ($res, $ref) {
-                if (! $res->ok()) {
-                    return null;
-                }
-                $data = $res->json('data');
-                if (! is_array($data) || count($data) < 3) {
-                    return null;
-                }
-
-                return [
-                    'surah_number'      => (int) $ref['surah'],
-                    'ayah_number'       => (int) $ref['ayah'],
-                    'surah_name_arabic' => data_get($data, '0.surah.name'),
-                    'surah_name_latin'  => data_get($data, '0.surah.englishName'),
-                    'arabic'            => data_get($data, '0.text'),
-                    'transliteration'   => data_get($data, '1.text'),
-                    'translation'       => data_get($data, '2.text'),
-                ];
-            }, $responses, $refs);
-        } catch (\Throwable $e) {
-            report($e);
-
-            return [];
-        }
-    }
-
-    /** Extract JSON even if the model wraps it in markdown fences. */
     private function parseJson(string $raw): ?array
     {
-        // Strip ```json ... ``` or ``` ... ``` fences
         $raw = preg_replace('/^```(?:json)?\s*/i', '', trim($raw)) ?? $raw;
         $raw = preg_replace('/\s*```$/', '', $raw) ?? $raw;
 
@@ -120,14 +64,28 @@ class QuranGuidanceService
             return null;
         }
 
-        // Validate: surah must be 1-114
-        $data['verses'] = array_filter($data['verses'], fn ($v) =>
-            isset($v['surah'], $v['ayah'])
+        $verses = array_values(array_filter($data['verses'], fn ($v) =>
+            isset($v['surah'], $v['ayah'], $v['arabic'], $v['translation'])
             && is_numeric($v['surah']) && (int) $v['surah'] >= 1 && (int) $v['surah'] <= 114
             && is_numeric($v['ayah']) && (int) $v['ayah'] >= 1
-        );
+        ));
 
-        return empty($data['verses']) ? null : $data;
+        if (empty($verses)) {
+            return null;
+        }
+
+        return [
+            'reflection' => $data['reflection'] ?? '',
+            'verses'     => array_map(fn ($v) => [
+                'surah_number'      => (int) $v['surah'],
+                'ayah_number'       => (int) $v['ayah'],
+                'surah_name_arabic' => $v['surah_name_arabic'] ?? '',
+                'surah_name_latin'  => $v['surah_name_latin'] ?? '',
+                'arabic'            => $v['arabic'],
+                'transliteration'   => $v['transliteration'] ?? '',
+                'translation'       => $v['translation'],
+            ], $verses),
+        ];
     }
 
     private function detectLang(string $text): string
@@ -154,25 +112,34 @@ class QuranGuidanceService
 
     private function systemPrompt(string $lang): string
     {
-        $reflLang = $lang === 'Indonesian' ? 'Indonesian (Bahasa Indonesia)' : 'English';
+        $reflLang    = $lang === 'Indonesian' ? 'Indonesian (Bahasa Indonesia)' : 'English';
+        $transLang   = $lang === 'Indonesian' ? 'Indonesian' : 'English';
 
         return <<<PROMPT
-You are a compassionate Islamic scholar assistant. Given the user's emotional state, identify 1-3 Quran verses that are most relevant, comforting, or guiding for that feeling.
+You are a compassionate Islamic scholar. Given the user's emotional state, identify 1-3 Quran verses that are most relevant, comforting, or guiding.
 
-Return ONLY valid JSON in exactly this format:
+Return ONLY valid JSON in exactly this format — no extra keys, no text outside:
 {
   "verses": [
-    {"surah": <integer 1-114>, "ayah": <integer>}
+    {
+      "surah": <integer 1-114>,
+      "ayah": <integer>,
+      "surah_name_latin": "<e.g. Al-Baqarah>",
+      "surah_name_arabic": "<Arabic surah name>",
+      "arabic": "<exact Arabic verse text with diacritics>",
+      "transliteration": "<Latin transliteration of the Arabic>",
+      "translation": "<{$transLang} translation of the verse>"
+    }
   ],
   "reflection": "<2-3 sentences in {$reflLang} that compassionately connect these verses to the user's feeling>"
 }
 
 Rules:
-- Only real, verifiable Quran references (surah 1-114, ayah within valid range for that surah)
+- Only real, verifiable Quran references (surah 1-114, ayah within valid range)
 - 1-3 verses maximum
-- reflection MUST be in {$reflLang}
+- Arabic text must be accurate Uthmani script with full diacritics
+- Reflection must be in {$reflLang}
 - Be warm, spiritually thoughtful, and supportive
-- No text outside the JSON object
 PROMPT;
     }
 }

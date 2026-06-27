@@ -15,6 +15,7 @@ export const API = {
   CONTACT: `${BASE}/contact`,
   NOW_PLAYING: `${BASE}/now-playing`,
   CHAT: `${BASE}/chat`,
+  QURAN: `${BASE}/quran`,
   GITHUB_CONTRIBUTIONS: (year: number) => `${BASE}/github/contributions?year=${year}`,
 
   // Dashboard (auth required — uses UUID)

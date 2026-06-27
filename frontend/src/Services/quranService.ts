@@ -1,4 +1,5 @@
 import api from './Common/axiosInstance'
+import { API } from '@/Constants/apiEndpoints'
 
 export interface QuranVerse {
   surah_number: number
@@ -16,6 +17,10 @@ export interface QuranGuidanceResult {
 }
 
 export async function getQuranGuidance(feeling: string): Promise<QuranGuidanceResult> {
-  const res = await api.post<{ data: QuranGuidanceResult }>('/quran', { feeling })
+  const res = await api.post<{ data: QuranGuidanceResult }>(
+    API.QURAN,
+    { feeling },
+    { timeout: 35000 },
+  )
   return res.data.data
 }
