@@ -16,8 +16,27 @@ interface UseChatReturn {
   clear: () => void
 }
 
+const SESSION_KEY = 'shaturne_chat'
+
+function loadMessages(): Message[] {
+  try {
+    const raw = sessionStorage.getItem(SESSION_KEY)
+    return raw ? (JSON.parse(raw) as Message[]) : []
+  } catch {
+    return []
+  }
+}
+
+function saveMessages(msgs: Message[]): void {
+  try {
+    sessionStorage.setItem(SESSION_KEY, JSON.stringify(msgs))
+  } catch {
+    // sessionStorage not available (e.g. private mode quota)
+  }
+}
+
 export function useChat(): UseChatReturn {
-  const [messages, setMessages] = useState<Message[]>([])
+  const [messages, setMessages] = useState<Message[]>(loadMessages)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -32,7 +51,11 @@ export function useChat(): UseChatReturn {
         content: text.trim(),
         ts: Date.now(),
       }
-      setMessages(prev => [...prev, userMsg])
+      setMessages(prev => {
+        const next = [...prev, userMsg]
+        saveMessages(next)
+        return next
+      })
       setIsLoading(true)
 
       try {
@@ -43,7 +66,11 @@ export function useChat(): UseChatReturn {
           content: reply,
           ts: Date.now(),
         }
-        setMessages(prev => [...prev, aiMsg])
+        setMessages(prev => {
+          const next = [...prev, aiMsg]
+          saveMessages(next)
+          return next
+        })
       } catch {
         setError('Gagal mengirim pesan. Coba lagi.')
       } finally {
@@ -54,6 +81,7 @@ export function useChat(): UseChatReturn {
   )
 
   const clear = useCallback(() => {
+    sessionStorage.removeItem(SESSION_KEY)
     setMessages([])
     setError(null)
   }, [])
