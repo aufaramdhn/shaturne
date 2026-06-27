@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\ChatController;
 use App\Http\Controllers\Api\V1\DashboardController;
 use App\Http\Controllers\Api\V1\DashboardExperienceController;
 use App\Http\Controllers\Api\V1\DashboardMessageController;
@@ -45,6 +46,8 @@ Route::prefix('api/v1')->group(function () {
         ->middleware('throttle:60,1'); // polled ~30s by the frontend
     Route::get('github/contributions', [GithubContributionsController::class, 'index'])
         ->middleware('throttle:30,1'); // cached 6h, light rate limit
+    Route::post('chat', [ChatController::class, 'store'])
+        ->middleware(['throttle:10,1', 'throttle:50,1440']); // 10/min, 50/day per IP
 
     // ── Dashboard (auth required) — uses UUID, not integer ID ───────────
     Route::prefix('dashboard')->middleware(['auth:sanctum', 'role:admin'])->group(function () {
