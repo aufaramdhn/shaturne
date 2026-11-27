@@ -18,10 +18,11 @@ export const id = {
     statDisciplines: 'Disiplin',
   },
   about: {
-    eyebrow: 'Tentang',
-    title: 'Frontend yang rapi, backend yang kokoh.',
-    p1: 'Saya membangun aplikasi web end-to-end dengan React, TypeScript, dan Laravel: dari antarmuka yang responsif hingga REST API yang terdokumentasi.',
-    p2: 'Saya juga familiar dengan keamanan aplikasi web: pengujian penetrasi OWASP Top 10, manajemen autentikasi, dan praktik pengembangan yang aman di sisi backend maupun frontend.',
+    eyebrow: 'Tentang Saya',
+    title: 'Membangun antarmuka rapi dan sistem web yang terstruktur.',
+    p1: 'Saya Aufa Ramadhan, mahasiswa Teknik Informatika Universitas Pasundan (2023 - Sekarang) dan alumni Rekayasa Perangkat Lunak SMK Bina Mandiri Multi Media (2020 - 2023) yang fokus mengembangkan aplikasi web end-to-end dengan React, TypeScript, dan Laravel.',
+    p2: 'Berpengalaman lewat program magang di Kodingin.id (merancang frontend Sistem Manajemen Operasional dan POS Toko Bangunan Gunajaya menggunakan React dan Inertia.js) serta di Dewarangga (membangun aplikasi mobile React Native, web React.js, dan WordPress).',
+    p3: 'Saya juga mendalami keamanan aplikasi web, termasuk pengujian penetrasi dasar (OWASP Top 10), manajemen autentikasi, serta praktik kode yang rapi dan terdokumentasi.',
   },
   skills: {
     eyebrow: 'Keahlian',

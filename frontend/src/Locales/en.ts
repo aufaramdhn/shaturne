@@ -20,10 +20,11 @@ export const en: typeof id = {
     statDisciplines: 'Disciplines',
   },
   about: {
-    eyebrow: 'About',
-    title: 'Clean frontend, solid backend.',
-    p1: 'I build end-to-end web applications with React, TypeScript, and Laravel: from responsive interfaces to well-documented REST APIs.',
-    p2: "I'm also familiar with web application security: OWASP Top 10 penetration testing, authentication management, and secure development practices on both backend and frontend.",
+    eyebrow: 'About Me',
+    title: 'Building clean interfaces and structured web systems.',
+    p1: 'I am Aufa Ramadhan, a Computer Science student at Universitas Pasundan (2023 - Present) and Software Engineering graduate from SMK Bina Mandiri Multi Media (2020 - 2023), focused on end-to-end web development with React, TypeScript, and Laravel.',
+    p2: 'Through project-based internships at Kodingin.id (building the frontend Operational Management and POS system for Toko Bangunan Gunajaya with React and Inertia.js) and Dewarangga (developing React Native mobile apps, React.js web apps, and WordPress sites), I turn operational needs into clean user experiences.',
+    p3: 'I also practice web application security, covering OWASP Top 10 fundamentals, cookie-based authentication, and maintainable, well-documented codebases.',
   },
   skills: {
     eyebrow: 'Skills',

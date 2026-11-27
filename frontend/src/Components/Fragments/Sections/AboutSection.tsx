@@ -9,10 +9,11 @@ export default function AboutSection() {
 
   return (
     <Section eyebrow={t('about.eyebrow')} title={t('about.title')}>
-      <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+      <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
         <div className="flex flex-col gap-4 text-[1.0625rem] leading-[1.75] text-[var(--color-text)]">
           <p>{t('about.p1')}</p>
           <p>{t('about.p2')}</p>
+          <p className="text-[var(--color-text-muted)]">{t('about.p3')}</p>
         </div>
         <NotesCard />
       </div>
