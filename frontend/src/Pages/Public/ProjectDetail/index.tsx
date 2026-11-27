@@ -70,7 +70,7 @@ export default function ProjectDetail() {
 
   return (
     <ErrorBoundary>
-      <article className="mx-auto max-w-3xl px-5 py-16 sm:px-8">
+      <article className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
         <ScrollProgressBar />
         <Link
           to={localePath(lang, ROUTES.PROJECTS)}

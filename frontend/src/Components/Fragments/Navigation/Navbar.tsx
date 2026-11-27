@@ -42,7 +42,7 @@ export default function Navbar() {
           : 'border-b border-transparent bg-[var(--color-bg)]/50',
       ].join(' ')}
     >
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
+      <nav className="mx-auto flex h-16 max-w-[104rem] items-center justify-between px-5 sm:px-8 lg:px-10">
         <Link
           to={localePath(lang, ROUTES.HOME)}
           className="font-[var(--font-display)] text-[1.35rem] font-bold tracking-[-0.02em] text-[var(--color-text)] transition-colors hover:text-[var(--color-accent)]"
@@ -104,7 +104,7 @@ export default function Navbar() {
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden border-t border-[var(--color-border)] bg-[var(--color-bg)]/95 md:hidden"
           >
-            <ul className="mx-auto flex max-w-7xl flex-col gap-1 px-5 py-4 sm:px-8">
+            <ul className="mx-auto flex max-w-[104rem] flex-col gap-1 px-5 py-4 sm:px-8 lg:px-10">
               {links.map(link => (
                 <li key={link.to}>
                   <NavLink

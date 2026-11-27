@@ -109,7 +109,7 @@ export default function Playground() {
   ]
 
   return (
-    <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
+    <div className="mx-auto max-w-[104rem] px-5 py-16 sm:px-8 lg:px-10">
       <motion.h1
         variants={fadeUp}
         initial="hidden"

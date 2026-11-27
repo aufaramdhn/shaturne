@@ -34,7 +34,7 @@ export default function Section({
       initial={reduce ? false : 'hidden'}
       whileInView={reduce ? undefined : 'visible'}
       viewport={{ once: true, amount: 0.2 }}
-      className={`mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-24 ${className}`}
+      className={`mx-auto max-w-[104rem] px-5 py-20 sm:px-8 sm:py-24 lg:px-10 ${className}`}
     >
       <div className={centered ? 'mx-auto max-w-2xl text-center' : 'max-w-2xl'}>
         {eyebrow && (

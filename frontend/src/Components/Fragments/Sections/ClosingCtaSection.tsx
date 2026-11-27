@@ -9,7 +9,7 @@ export default function ClosingCtaSection() {
   const { lang, t } = useLanguage()
 
   return (
-    <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
+    <section className="mx-auto max-w-[104rem] px-5 py-16 sm:px-8 lg:px-10">
       <div className="relative overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)]/80 p-10 sm:p-14">
         <div
           className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full opacity-30 blur-[90px]"

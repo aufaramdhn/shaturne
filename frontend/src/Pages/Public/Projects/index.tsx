@@ -17,7 +17,7 @@ export default function Projects() {
   })
 
   return (
-    <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
+    <div className="mx-auto max-w-[104rem] px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
       <header className="max-w-2xl">
         <p className="font-[var(--font-mono)] text-[0.8125rem] uppercase tracking-[0.12em] text-[var(--color-accent)]">
           {isLoading ? '…' : t('projectsPage.entries', { count: projects.length })}

@@ -16,7 +16,7 @@ export default function Footer() {
 
   return (
     <footer className="mt-24 border-t border-[var(--color-border)]">
-      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-12 sm:flex-row sm:items-end sm:justify-between sm:px-8">
+      <div className="mx-auto flex max-w-[104rem] flex-col gap-6 px-5 py-12 sm:flex-row sm:items-end sm:justify-between sm:px-8 lg:px-10">
         <div className="flex flex-col gap-2">
           <Link
             to={localePath(lang, ROUTES.HOME)}
