@@ -1,0 +1,47 @@
+FROM dunglas/frankenphp:1-php8.4
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    unzip \
+    libcap2-bin \
+    && rm -rf /var/lib/apt/lists/* \
+    && install-php-extensions \
+    pdo_pgsql \
+    pgsql \
+    bcmath \
+    intl \
+    zip \
+    gd \
+    exif \
+    opcache
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /app
+
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader --no-scripts
+
+COPY . .
+COPY Caddyfile /etc/frankenphp/Caddyfile
+
+RUN composer dump-autoload --optimize --no-dev --classmap-authoritative \
+    && mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs bootstrap/cache /config/caddy /data/caddy \
+    && php artisan package:discover --ansi \
+    && chown -R www-data:www-data /app/storage /app/bootstrap/cache /config/caddy /data/caddy \
+    && chmod -R 775 /app/storage /app/bootstrap/cache \
+    && setcap CAP_NET_BIND_SERVICE=+eip /usr/local/bin/frankenphp
+
+ENV PORT=80 \
+    APP_ENV=production \
+    APP_DEBUG=false \
+    LOG_CHANNEL=stderr \
+    VIEW_COMPILED_PATH=/tmp \
+    XDG_CONFIG_HOME=/tmp/caddy/config \
+    XDG_DATA_HOME=/tmp/caddy/data
+
+EXPOSE 80
+
+USER www-data
+
+CMD ["frankenphp", "run", "--config", "/etc/frankenphp/Caddyfile"]

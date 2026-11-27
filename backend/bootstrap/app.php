@@ -22,6 +22,9 @@ return Application::configure(basePath: dirname(__DIR__))
         apiPrefix: '',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Trust Render / reverse proxy HTTPS headers for Sanctum secure cookies
+        $middleware->trustProxies(at: '*');
+
         // Apply to all API routes
         $middleware->api(prepend: [
             ForceJsonResponse::class,
