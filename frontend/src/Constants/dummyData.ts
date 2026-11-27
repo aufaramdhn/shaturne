@@ -41,6 +41,8 @@ export const PROFILE = {
   } satisfies LocalizedText,
   email: 'rathermyself08@gmail.com',
   github: 'https://github.com/aufaramdhn',
+  instagram: 'https://www.instagram.com/aufaramdhn',
+  tiktok: 'https://www.tiktok.com/@shaturne',
 }
 
 // ── Skills ────────────────────────────────────────────────────────────
@@ -62,22 +64,22 @@ export const SKILLS: DummySkillGroup[] = [
 // ── Experience ────────────────────────────────────────────────────────
 export const EXPERIENCES: DummyExperience[] = [
   {
-    title: { id: 'Fullstack Developer', en: 'Fullstack Developer' },
-    organization: { id: 'Proyek Lepas', en: 'Freelance' },
-    period: { id: '2024 / Sekarang', en: '2024 / Present' },
-    description: {
-      id: 'Membangun aplikasi web end-to-end dengan React, TypeScript, dan Laravel: dari desain antarmuka hingga REST API, autentikasi, dan konfigurasi deployment.',
-      en: 'Building end-to-end web applications with React, TypeScript, and Laravel: from interface design to REST APIs, authentication, and deployment setup.',
-    },
-    type: 'kerja',
-  },
-  {
     title: { id: 'Mahasiswa Teknik Informatika', en: 'Computer Science Student' },
     organization: { id: 'Universitas Pasundan', en: 'Universitas Pasundan' },
-    period: { id: '2022 / Sekarang', en: '2022 / Present' },
+    period: { id: '2023 / Sekarang', en: '2023 / Present' },
     description: {
       id: 'Mendalami rekayasa perangkat lunak dan pengembangan web, dengan fondasi kuat di algoritma, arsitektur sistem, dan praktik pengembangan modern.',
       en: 'Studying software engineering and web development, building a strong foundation in algorithms, system architecture, and modern development practices.',
+    },
+    type: 'pendidikan',
+  },
+  {
+    title: { id: 'Frontend Developer', en: 'Frontend Developer' },
+    organization: { id: 'SMK (Rekayasa Perangkat Lunak)', en: 'SMK (Software Engineering)' },
+    period: { id: '2020 / 2023', en: '2020 / 2023' },
+    description: {
+      id: 'Mempelajari dasar rekayasa perangkat lunak serta membangun antarmuka web modern sebagai frontend developer.',
+      en: 'Learned software engineering fundamentals and built modern web interfaces as a frontend developer.',
     },
     type: 'pendidikan',
   },

@@ -28,11 +28,16 @@ export const en: typeof id = {
   skills: {
     eyebrow: 'Skills',
     title: 'The tools I reach for every day.',
+    all: 'All',
   },
   experience: {
     eyebrow: 'Experience',
-    title: 'Two years building on the web.',
+    title: 'Journey & background.',
     present: 'Present',
+    workTitle: 'Work Experience',
+    educationTitle: 'Education',
+    organizationTitle: 'Organization',
+    workEmpty: 'Open to work opportunities and project collaborations.',
   },
   projectsPreview: {
     eyebrow: 'Projects',

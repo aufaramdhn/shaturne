@@ -26,11 +26,16 @@ export const id = {
   skills: {
     eyebrow: 'Keahlian',
     title: 'Perangkat yang saya pakai sehari-hari.',
+    all: 'Semua',
   },
   experience: {
     eyebrow: 'Pengalaman',
-    title: 'Dua tahun membangun di dunia web.',
+    title: 'Perjalanan & latar belakang.',
     present: 'Sekarang',
+    workTitle: 'Pengalaman Kerja',
+    educationTitle: 'Pendidikan',
+    organizationTitle: 'Organisasi',
+    workEmpty: 'Terbuka untuk peluang kerja dan kolaborasi proyek.',
   },
   projectsPreview: {
     eyebrow: 'Proyek',

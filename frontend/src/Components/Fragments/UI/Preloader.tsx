@@ -20,9 +20,22 @@ export default function Preloader() {
   const [index, setIndex] = useState(0)
   const [phase, setPhase] = useState<'words' | 'brand'>('words')
   const [done, setDone] = useState(false)
+  const [locked, setLocked] = useState(true)
 
   const lang = detectPreloaderLang()
   const tagline = dictionaries[lang].preloader.tagline
+
+  useEffect(() => {
+    if (!locked) return
+    const prevHtmlOverflow = document.documentElement.style.overflow
+    const prevBodyOverflow = document.body.style.overflow
+    document.documentElement.style.overflow = 'hidden'
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.documentElement.style.overflow = prevHtmlOverflow
+      document.body.style.overflow = prevBodyOverflow
+    }
+  }, [locked])
 
   useEffect(() => {
     const timers: number[] = []
@@ -37,7 +50,7 @@ export default function Preloader() {
   const total = (GREETINGS.length * WORD_MS + BRAND_MS) / 1000
 
   return (
-    <AnimatePresence>
+    <AnimatePresence onExitComplete={() => setLocked(false)}>
       {!done && (
         <motion.div
           key="preloader"

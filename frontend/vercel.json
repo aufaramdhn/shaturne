@@ -1,3 +1,14 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://shaturne-api.vercel.app/api/:path*" },
+    {
+      "source": "/sanctum/:path*",
+      "destination": "https://shaturne-api.vercel.app/sanctum/:path*"
+    },
+    {
+      "source": "/storage/:path*",
+      "destination": "https://shaturne-api.vercel.app/storage/:path*"
+    },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }

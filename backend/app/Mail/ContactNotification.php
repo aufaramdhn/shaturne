@@ -20,6 +20,7 @@ class ContactNotification extends Mailable implements ShouldQueue
     {
         return new Envelope(
             to: [config('mail.owner_email', 'rathermyself08@gmail.com')],
+            replyTo: [$this->contact->email],
             subject: "Pesan baru dari {$this->contact->name} | Shaturne",
         );
     }

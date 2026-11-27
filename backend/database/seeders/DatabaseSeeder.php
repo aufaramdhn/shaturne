@@ -90,25 +90,25 @@ class DatabaseSeeder extends Seeder
         // ── Experiences ──────────────────────────────────────────────────
         $experiences = [
             [
-                'title' => ['id' => 'Fullstack Developer', 'en' => 'Fullstack Developer'],
-                'organization' => 'Proyek Lepas',
-                'start_date' => '2024-01-01',
-                'end_date' => null,
-                'description' => [
-                    'id' => 'Membangun aplikasi web end-to-end dengan React, TypeScript, dan Laravel — dari desain antarmuka hingga REST API, autentikasi, dan konfigurasi deployment.',
-                    'en' => 'Building end-to-end web applications with React, TypeScript, and Laravel — from interface design to REST APIs, authentication, and deployment setup.',
-                ],
-                'type' => 'work',
-                'sort_order' => 1,
-            ],
-            [
                 'title' => ['id' => 'Mahasiswa Teknik Informatika', 'en' => 'Computer Science Student'],
                 'organization' => 'Universitas Pasundan',
-                'start_date' => '2022-09-01',
+                'start_date' => '2023-09-01',
                 'end_date' => null,
                 'description' => [
                     'id' => 'Mendalami rekayasa perangkat lunak dan pengembangan web, dengan fondasi kuat di algoritma, arsitektur sistem, dan praktik pengembangan modern.',
                     'en' => 'Studying software engineering and web development, building a strong foundation in algorithms, system architecture, and modern development practices.',
+                ],
+                'type' => 'education',
+                'sort_order' => 1,
+            ],
+            [
+                'title' => ['id' => 'Frontend Developer', 'en' => 'Frontend Developer'],
+                'organization' => 'SMK (Rekayasa Perangkat Lunak)',
+                'start_date' => '2020-07-01',
+                'end_date' => '2023-06-01',
+                'description' => [
+                    'id' => 'Mempelajari dasar rekayasa perangkat lunak serta membangun antarmuka web modern sebagai frontend developer.',
+                    'en' => 'Learned software engineering fundamentals and built modern web interfaces as a frontend developer.',
                 ],
                 'type' => 'education',
                 'sort_order' => 2,

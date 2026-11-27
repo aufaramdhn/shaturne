@@ -1,7 +1,14 @@
 import { Link } from 'react-router-dom'
+import SocialIcon, { type SocialPlatform } from '@/Components/Elements/SocialIcon'
 import { ROUTES, localePath } from '@/Constants/routes'
 import { useLanguage } from '@/Context/LanguageContext'
 import { PROFILE } from '@/Constants/dummyData'
+
+const FOOTER_SOCIALS: { platform: SocialPlatform; label: string; href: string }[] = [
+  { platform: 'github', label: 'GitHub', href: PROFILE.github },
+  { platform: 'instagram', label: 'Instagram', href: PROFILE.instagram },
+  { platform: 'tiktok', label: 'TikTok', href: PROFILE.tiktok },
+]
 
 export default function Footer() {
   const { lang, t } = useLanguage()
@@ -23,7 +30,7 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col gap-3 sm:items-end">
-          <nav className="flex gap-5 text-[0.9375rem] text-[var(--color-text-muted)]">
+          <nav className="flex flex-wrap items-center gap-5 text-[0.9375rem] text-[var(--color-text-muted)]">
             <Link
               to={localePath(lang, ROUTES.PROJECTS)}
               className="transition-colors hover:text-[var(--color-text)]"
@@ -36,15 +43,24 @@ export default function Footer() {
             >
               {t('nav.contact')}
             </Link>
-            <a
-              href={PROFILE.github}
-              target="_blank"
-              rel="noreferrer"
-              className="transition-colors hover:text-[var(--color-text)]"
-            >
-              GitHub
-            </a>
+
+            <div className="flex items-center gap-2 border-l border-[var(--color-border)] pl-4">
+              {FOOTER_SOCIALS.map(item => (
+                <a
+                  key={item.platform}
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={item.label}
+                  title={item.label}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)]/80 text-[var(--color-text-muted)] transition-colors hover:border-[var(--color-accent)]/60 hover:text-[var(--color-accent)]"
+                >
+                  <SocialIcon name={item.platform} className="h-4 w-4" />
+                </a>
+              ))}
+            </div>
           </nav>
+
           <p className="font-[var(--font-mono)] text-[0.75rem] tracking-[0.04em] text-[var(--color-text-muted)]">
             © {year} {PROFILE.name}
           </p>
