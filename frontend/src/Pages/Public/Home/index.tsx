@@ -16,11 +16,11 @@ import { useExperience } from '@/Hooks/Public/useExperience'
 import { PROFILE } from '@/Constants/dummyData'
 
 export default function Home() {
-  const { t } = useLanguage()
+  const { lang, t } = useLanguage()
   const { pathname } = useLocation()
   const { projects, isLoading: projectsLoading } = useProjects()
   const { groups, isLoading: skillsLoading } = useSkills()
-  const { experiences, isLoading: expLoading } = useExperience()
+  const { experiences, isLoading: expLoading } = useExperience(lang)
 
   const origin = window.location.origin
   useSeo({
@@ -62,7 +62,7 @@ export default function Home() {
         <ExperienceSection experiences={experiences} isLoading={expLoading} />
       </ErrorBoundary>
       <ErrorBoundary>
-        <ProjectsPreviewSection featured={projects.slice(0, 2)} isLoading={projectsLoading} />
+        <ProjectsPreviewSection featured={projects.slice(0, 10)} isLoading={projectsLoading} />
       </ErrorBoundary>
       <ClosingCtaSection />
     </div>
