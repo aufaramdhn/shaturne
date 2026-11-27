@@ -11,7 +11,7 @@ interface NowPlayingState {
   progressMs: number
 }
 
-export function useNowPlaying(intervalMs = 15000): NowPlayingState {
+export function useNowPlaying(intervalMs = 30000): NowPlayingState {
   const [data, setData] = useState<NowPlaying | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [progress, setProgress] = useState(0)
@@ -25,6 +25,7 @@ export function useNowPlaying(intervalMs = 15000): NowPlayingState {
     let active = true
 
     async function load() {
+      if (document.hidden) return
       try {
         const res = await fetchNowPlaying()
         if (!active) return
@@ -40,11 +41,22 @@ export function useNowPlaying(intervalMs = 15000): NowPlayingState {
       }
     }
 
-    load()
-    const pollId = window.setInterval(load, intervalMs)
+    function onVisibilityChange() {
+      if (!document.hidden) {
+        void load()
+      }
+    }
+
+    void load()
+    const pollId = window.setInterval(() => {
+      void load()
+    }, intervalMs)
+    document.addEventListener('visibilitychange', onVisibilityChange)
+
     return () => {
       active = false
       window.clearInterval(pollId)
+      document.removeEventListener('visibilitychange', onVisibilityChange)
     }
   }, [intervalMs])
 

@@ -23,9 +23,18 @@ class GitHubService
 
         $cacheKey = "github_contributions_{$username}_{$year}";
 
-        return Cache::remember($cacheKey, self::CACHE_TTL, function () use ($token, $username, $year) {
-            return $this->fetch($token, $username, $year);
-        });
+        $cached = Cache::get($cacheKey);
+        if (is_array($cached) && ! empty($cached['weeks'])) {
+            /** @var array{weeks: list<array{firstDay: string, contributionDays: list<array{date: string, contributionCount: int, weekday: int}>}>, totalContributions: int, availableYears: list<int>} $cached */
+            return $cached;
+        }
+
+        $result = $this->fetch($token, $username, $year);
+        if (! empty($result['weeks'])) {
+            Cache::put($cacheKey, $result, self::CACHE_TTL);
+        }
+
+        return $result;
     }
 
     private function fetch(string $token, string $username, int $year): array
