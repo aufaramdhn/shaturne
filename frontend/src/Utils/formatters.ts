@@ -6,11 +6,22 @@ export function projectAccent(seed: string | number): 'cyan' | 'violet' {
   return n % 2 === 0 ? 'cyan' : 'violet'
 }
 
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
 // Build a period label from ISO dates. `present` is the localized word for an
 // ongoing role (e.g. "Sekarang" / "Present").
 export function periodLabel(start: string | null, end: string | null, present: string): string {
   const year = (d: string | null) => (d ? d.slice(0, 4) : '')
   const startY = year(start)
   const endY = end ? year(end) : present
+
+  if (start && end && startY === endY) {
+    const startM = MONTHS[Number(start.slice(5, 7)) - 1]
+    const endM = MONTHS[Number(end.slice(5, 7)) - 1]
+    if (startM && endM) {
+      return startM === endM ? `${startM} ${startY}` : `${startM} - ${endM} ${startY}`
+    }
+  }
+
   return startY ? `${startY} / ${endY}` : endY
 }

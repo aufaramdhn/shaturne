@@ -22,6 +22,10 @@ describe('periodLabel', () => {
     expect(periodLabel('2022-06-01', '2024-03-01', 'Present')).toBe('2022 / 2024')
   })
 
+  it('renders month range when start and end are in the same year', () => {
+    expect(periodLabel('2022-01-01', '2022-04-30', 'Present')).toBe('Jan - Apr 2022')
+  })
+
   it('falls back to the end word when start is missing', () => {
     expect(periodLabel(null, null, 'Present')).toBe('Present')
   })

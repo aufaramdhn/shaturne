@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { getExperiences } from '@/Services/Public/experienceService'
 import type { ApiExperience } from '@/Services/Public/experienceService'
 
-export function useExperience() {
+export function useExperience(lang?: string) {
   const [experiences, setExperiences] = useState<ApiExperience[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -25,7 +25,7 @@ export function useExperience() {
     return () => {
       active = false
     }
-  }, [])
+  }, [lang])
 
   return { experiences, isLoading, error }
 }

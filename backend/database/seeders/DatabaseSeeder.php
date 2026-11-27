@@ -90,6 +90,36 @@ class DatabaseSeeder extends Seeder
         // ── Experiences ──────────────────────────────────────────────────
         $experiences = [
             [
+                'title' => [
+                    'id' => 'Frontend Developer Intern (Project Toko Gunajaya)',
+                    'en' => 'Frontend Developer Intern (Toko Gunajaya Project)',
+                ],
+                'organization' => 'Kodingin.id',
+                'start_date' => '2026-03-09',
+                'end_date' => '2026-07-25',
+                'description' => [
+                    'id' => 'Merancang dan membangun antarmuka web Sistem Manajemen Operasional dan Point of Sale (POS) untuk Toko Bangunan Gunajaya (berbasis proyek dari Kodingin.id) menggunakan React, Inertia.js, Tailwind CSS, dan Recharts. Mencakup arsitektur Atomic Design, kasir POS real-time (checkout tunai/transfer/kasbon dan cetak struk thermal 58mm/80mm), manajemen produk, piutang/cicilan, pintasan pencarian Ctrl+K, serta pengujian Black-Box.',
+                    'en' => 'Designed and built the web frontend for the Operational Management and Point of Sale (POS) System for Toko Bangunan Gunajaya (project-based internship at Kodingin.id) using React, Inertia.js, Tailwind CSS, and Recharts. Included Atomic Design architecture, real-time POS cashier (cash/transfer/credit checkout and 58mm/80mm thermal receipt printing), product and receivables management, Ctrl+K search, and Black-Box testing.',
+                ],
+                'type' => 'work',
+                'sort_order' => 1,
+            ],
+            [
+                'title' => [
+                    'id' => 'Frontend & Mobile Developer Intern',
+                    'en' => 'Frontend & Mobile Developer Intern',
+                ],
+                'organization' => 'Dewarangga',
+                'start_date' => '2022-01-01',
+                'end_date' => '2022-04-30',
+                'description' => [
+                    'id' => 'Menjalani program magang selama 3 bulan (Januari sampai April 2022) untuk membangun aplikasi mobile menggunakan React Native, aplikasi web dengan React.js, serta pengembangan situs berbasis WordPress.',
+                    'en' => 'Completed a 3-month internship (January to April 2022) building mobile applications with React Native, web applications with React.js, and websites powered by WordPress.',
+                ],
+                'type' => 'work',
+                'sort_order' => 2,
+            ],
+            [
                 'title' => ['id' => 'Mahasiswa Teknik Informatika', 'en' => 'Computer Science Student'],
                 'organization' => 'Universitas Pasundan',
                 'start_date' => '2023-09-01',
@@ -99,11 +129,11 @@ class DatabaseSeeder extends Seeder
                     'en' => 'Studying software engineering and web development, building a strong foundation in algorithms, system architecture, and modern development practices.',
                 ],
                 'type' => 'education',
-                'sort_order' => 1,
+                'sort_order' => 3,
             ],
             [
                 'title' => ['id' => 'Frontend Developer', 'en' => 'Frontend Developer'],
-                'organization' => 'SMK (Rekayasa Perangkat Lunak)',
+                'organization' => 'SMK Bina Mandiri Multi Media (RPL)',
                 'start_date' => '2020-07-01',
                 'end_date' => '2023-06-01',
                 'description' => [
@@ -111,7 +141,7 @@ class DatabaseSeeder extends Seeder
                     'en' => 'Learned software engineering fundamentals and built modern web interfaces as a frontend developer.',
                 ],
                 'type' => 'education',
-                'sort_order' => 2,
+                'sort_order' => 4,
             ],
         ];
         foreach ($experiences as $e) {

@@ -64,6 +64,32 @@ export const SKILLS: DummySkillGroup[] = [
 // ── Experience ────────────────────────────────────────────────────────
 export const EXPERIENCES: DummyExperience[] = [
   {
+    title: {
+      id: 'Frontend Developer Intern (Project Toko Gunajaya)',
+      en: 'Frontend Developer Intern (Toko Gunajaya Project)',
+    },
+    organization: { id: 'Kodingin.id', en: 'Kodingin.id' },
+    period: { id: 'Mar - Jul 2026', en: 'Mar - Jul 2026' },
+    description: {
+      id: 'Merancang dan membangun antarmuka web Sistem Manajemen Operasional dan Point of Sale (POS) untuk Toko Bangunan Gunajaya (berbasis proyek dari Kodingin.id) menggunakan React, Inertia.js, Tailwind CSS, dan Recharts. Mencakup arsitektur Atomic Design, kasir POS real-time (checkout tunai/transfer/kasbon dan cetak struk thermal 58mm/80mm), manajemen produk, piutang/cicilan, pintasan pencarian Ctrl+K, serta pengujian Black-Box.',
+      en: 'Designed and built the web frontend for the Operational Management and Point of Sale (POS) System for Toko Bangunan Gunajaya (project-based internship at Kodingin.id) using React, Inertia.js, Tailwind CSS, and Recharts. Included Atomic Design architecture, real-time POS cashier (cash/transfer/credit checkout and 58mm/80mm thermal receipt printing), product and receivables management, Ctrl+K search, and Black-Box testing.',
+    },
+    type: 'kerja',
+  },
+  {
+    title: {
+      id: 'Frontend & Mobile Developer Intern',
+      en: 'Frontend & Mobile Developer Intern',
+    },
+    organization: { id: 'Dewarangga', en: 'Dewarangga' },
+    period: { id: 'Jan - Apr 2022', en: 'Jan - Apr 2022' },
+    description: {
+      id: 'Menjalani program magang selama 3 bulan (Januari sampai April 2022) untuk membangun aplikasi mobile menggunakan React Native, aplikasi web dengan React.js, serta pengembangan situs berbasis WordPress.',
+      en: 'Completed a 3-month internship (January to April 2022) building mobile applications with React Native, web applications with React.js, and websites powered by WordPress.',
+    },
+    type: 'kerja',
+  },
+  {
     title: { id: 'Mahasiswa Teknik Informatika', en: 'Computer Science Student' },
     organization: { id: 'Universitas Pasundan', en: 'Universitas Pasundan' },
     period: { id: '2023 / Sekarang', en: '2023 / Present' },
@@ -75,7 +101,10 @@ export const EXPERIENCES: DummyExperience[] = [
   },
   {
     title: { id: 'Frontend Developer', en: 'Frontend Developer' },
-    organization: { id: 'SMK (Rekayasa Perangkat Lunak)', en: 'SMK (Software Engineering)' },
+    organization: {
+      id: 'SMK Bina Mandiri Multi Media (RPL)',
+      en: 'SMK Bina Mandiri Multi Media (RPL)',
+    },
     period: { id: '2020 / 2023', en: '2020 / 2023' },
     description: {
       id: 'Mempelajari dasar rekayasa perangkat lunak serta membangun antarmuka web modern sebagai frontend developer.',
