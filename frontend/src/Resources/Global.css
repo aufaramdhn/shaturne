@@ -12,6 +12,7 @@
   --color-accent-strong: oklch(74% 0.15 198);
   --color-accent-2: oklch(70% 0.15 285); /* violet — gradient pair */
   --color-error: oklch(68% 0.19 25);
+  --color-code-string: oklch(78% 0.14 160);
 
   /* glow */
   --glow-accent: 0 0 32px -6px color-mix(in oklch, var(--color-accent) 60%, transparent);
@@ -41,18 +42,23 @@
 }
 
 [data-theme='light'] {
-  --color-bg: oklch(98% 0.005 255);
-  --color-surface: oklch(96% 0.007 255);
-  --color-surface-raised: oklch(100% 0 0);
-  --color-text: oklch(22% 0.03 265);
-  --color-text-muted: oklch(48% 0.03 260);
-  --color-border: oklch(89% 0.012 260);
-  --color-accent: oklch(55% 0.13 205);
-  --color-accent-strong: oklch(50% 0.14 208);
-  --color-accent-2: oklch(52% 0.19 285);
-  --color-error: oklch(52% 0.2 25);
+  --color-bg: oklch(94.5% 0.011 85);
+  --color-surface: oklch(97% 0.008 85);
+  --color-surface-raised: oklch(98.5% 0.006 85);
+  --color-text: oklch(23% 0.022 260);
+  --color-text-muted: oklch(47% 0.02 255);
+  --color-border: oklch(85% 0.014 82);
+  --color-accent: oklch(48% 0.125 202);
+  --color-accent-strong: oklch(42% 0.135 205);
+  --color-accent-2: oklch(48% 0.17 285);
+  --color-error: oklch(50% 0.19 25);
+  --color-code-string: oklch(44% 0.13 160);
 
-  --glow-accent: 0 0 28px -8px color-mix(in oklch, var(--color-accent) 40%, transparent);
+  --glow-accent: 0 0 28px -8px color-mix(in oklch, var(--color-accent) 32%, transparent);
+}
+
+[data-theme='light'] .aurora-blob {
+  opacity: 0.18;
 }
 
 /* ─── Base layer — inside @layer base so Tailwind utilities win ──────── */
