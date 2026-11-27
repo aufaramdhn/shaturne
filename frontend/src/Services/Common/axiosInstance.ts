@@ -7,7 +7,7 @@ const axiosInstance = axios.create({
   baseURL: ENV.API_URL,
   withCredentials: true, // required for Sanctum cookie auth
   headers: { Accept: 'application/json' },
-  timeout: 8000,
+  timeout: 25000,
 })
 
 function getXsrfToken(): string | undefined {
